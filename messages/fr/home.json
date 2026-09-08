@@ -1,0 +1,57 @@
+{
+  "hero": {
+    "welcome": "Bienvenue à l'Hôtel Najma",
+    "title": "Luxe & Raffinement à Alger",
+    "subtitle": "Profitez d'un séjour prestige 4 étoiles, de prestations sur-mesure et d'un cadre d'exception.",
+    "ctaBooking": "Réservez Votre Séjour",
+    "ctaExplore": "Explorer nos Suites"
+  },
+  "stats": {
+    "rooms": "Suites & Chambres d'exception",
+    "guests": "Clients satisfaits par an",
+    "satisfaction": "Taux de satisfaction",
+    "experience": "Années de tradition hôtelière"
+  },
+  "aboutShort": {
+    "title": "L'hospitalité algérienne au sommet du luxe",
+    "subtitle": "À Propos de l'Hôtel Najma",
+    "description": "Situé dans un cadre privilégié à Alger, l'Hôtel Najma offre une expérience de séjour luxueuse qui combine architecture contemporaine et confort absolu.",
+    "aboutLongDesc": "Les chambres et suites de l'Hôtel Najma se distinguent par leur design intérieur raffiné, un mobilier luxueux et un éclairage apaisant qui procurent confort et détente. L'hôtel propose des installations sportives et de loisirs exceptionnelles, notamment une piscine, un centre de remise en forme, un restaurant gastronomique et une salle de réception royale."
+  },
+  "amenities": {
+    "title": "Nos Équipements de Prestige",
+    "subtitle": "Une expérience complète dédiée à votre bien-être",
+    "pool": "Piscine somptueuse & zone de détente",
+    "gym": "Centre de remise en forme ultra-moderne",
+    "restaurant": "Cuisine gastronomique raffinée",
+    "wedding": "Salle de réception & événements royaux",
+    "wifi": "Wi-Fi haute vitesse gratuit",
+    "parking": "Parking sécurisé gratuit"
+  },
+  "testimonials": {
+    "title": "Avis de nos Obôtes de Marque",
+    "subtitle": "Des moments inoubliables à l'Hôtel Najma",
+    "t1": "Séjour d'une qualité remarquable. Le personnel est aux petits soins, la chambre d'une propreté irréprochable et le restaurant exquis.",
+    "t2": "Sans doute l'un des plus beaux établissements de la région. Notre réception de mariage était tout simplement féerique.",
+    "t3": "La piscine et le centre de fitness sont de niveau international. Accueil chaleureux et cadre très apaisant."
+  },
+  "amenitiesLong": {
+    "gymTitle": "Équipements de pointe pour un fitness complet",
+    "gymDesc": "Le centre de remise en forme de l'hôtel est équipé d'appareils cardiovasculaires, de musculation et d'haltères dernière génération pour rester en forme durant votre séjour.",
+    "poolTitle": "Une piscine somptueuse et une ambiance relaxante",
+    "poolDesc": "Profitez de la baignade et de la détente dans notre piscine conçue selon les normes de sécurité les plus strictes, avec des chaises longues confortables et un service de boissons.",
+    "restaurantTitle": "Saveurs locales et internationales de prestige",
+    "restaurantDesc": "Le restaurant de l'Hôtel Najma propose une sélection exquise de plats traditionnels algériens et internationaux, préparés par des chefs professionnels.",
+    "breakfastDesc": "Buffet petit-déjeuner somptueux (07:00 - 10:30)",
+    "lunchDinnerDesc": "Déjeuner et Dîner avec menu gastronomique (12:30 - 23:00)",
+    "weddingTitle": "Une salle royale pour immortaliser vos plus beaux souvenirs",
+    "weddingDesc": "La salle de réception de l'Hôtel Najma offre une grande capacité, un décor luxueux, des systèmes d'éclairage et de sonorisation avancés, ainsi qu'une équipe professionnelle."
+  },
+  "aboutLongDesc": "Vivez un séjour inoubliable où le luxe rencontre la tranquillité. Notre personnel dévoué veille à ce que chaque moment soit parfait.",
+  "features": {
+    "luxuryTitle": "Luxe 4 Étoiles",
+    "luxurySub": "Standard Premium",
+    "securityTitle": "Sécurité 24/7",
+    "securitySub": "Tranquillité d'esprit totale"
+  }
+}

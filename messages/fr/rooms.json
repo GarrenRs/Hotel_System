@@ -1,0 +1,30 @@
+{
+  "title": "Chambres & Suites de Luxe",
+  "subtitle": "Conçues pour offrir le plus haut niveau de confort et d'élégance",
+  "roomsDesc": "Choisissez parmi notre luxueuse sélection de chambres et de suites conçues pour votre confort absolu.",
+  "perNight": "DZD / Nuit",
+  "capacity": "Capacité",
+  "persons": "Personnes",
+  "area": "Superficie",
+  "reserveRoom": "Réserver cette chambre",
+  "deluxeSuite": {
+    "title": "Suite Deluxe Royale",
+    "description": "Suite spacieuse et élégante, TV connectée, lit King-size haut de gamme et vue imprenable sur le jardin."
+  },
+  "executiveSuite": {
+    "title": "Suite Exécutive",
+    "description": "Idéale pour les séjours d'affaires et les familles exigeantes, comprenant un salon séparé et un espace travail."
+  },
+  "royalSuite": {
+    "title": "Suite Royale Panoramique",
+    "description": "La plus somptueuse suite de l'hôtel (110m²), avec Jacuzzi privé, service de majordome dédié et vue panoramique."
+  },
+  "standardDouble": {
+    "title": "Chambre Double Prestige",
+    "description": "Chambre raffinée équipée de toutes les commodités modernes, lit double grand confort et décoration apaisante."
+  },
+  "familySuite": {
+    "title": "Suite Familiale Classique",
+    "description": "Deux chambres communicantes garantissant espace, sécurité et intimité pour toute la famille."
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "title": "Contactez-nous",
+  "subtitle": "Notre équipe de réception est à votre disposition 24h/24",
+  "address": "Adresse",
+  "phone": "Téléphone",
+  "whatsapp": "WhatsApp",
+  "email": "E-mail",
+  "formTitle": "Envoyez-nous votre message",
+  "nameLabel": "Nom Complet",
+  "emailLabel": "Adresse E-mail",
+  "phoneLabel": "Numéro de Téléphone",
+  "messageLabel": "Votre Message / Demande",
+  "sendButton": "Envoyer le Message",
+  "successMessage": "Votre message a été envoyé avec succès. Notre équipe vous recontactera très rapidement.",
+  "bookingConfirmedMessage": "Votre demande de réservation a bien été reçue. Notre équipe de réception vous contactera pour confirmer les détails."
+}

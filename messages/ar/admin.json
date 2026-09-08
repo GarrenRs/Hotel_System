@@ -1,0 +1,76 @@
+{
+  "loginTitle": "لوحة إدارة الحجوزات",
+  "loginSubtitle": "فندق نجمة - الدخول المخصص للإدارة",
+  "secureAccess": "لوحة الإدارة • وصول آمن",
+  "username": "اسم المستخدم",
+  "password": "كلمة المرور",
+  "loginButton": "تسجيل الدخول",
+  "logout": "تسجيل الخروج",
+  "dashboard": "لوحة التحكم",
+  "dashboardSubtitle": "ملخص ومؤشرات طلبات الحجز الحالية",
+  "recentReservationsTitle": "أحدث طلبات الحجز",
+  "viewAll": "عرض الكل",
+  "reservations": "إدارة الحجوزات",
+  "rooms": "إدارة الغرف",
+  "roomsSubtitle": "لوحة الغرف والأجنحة الحية — الحالة الفعلية لكل غرفة في الفندق",
+  "occupancy": "إشغال الغرف",
+  "occupancySubtitle": "غرف مشغولة من إجمالي الغرف",
+  "settings": "الإعدادات",
+  "stats": {
+    "total": "إجمالي الطلبات",
+    "new": "طلبات جديدة",
+    "pending": "قيد الانتظار",
+    "confirmed": "حجوزات مؤكدة",
+    "cancelled": "حجوزات ملغاة"
+  },
+  "table": {
+    "id": "رقم الحجز",
+    "customer": "اسم العميل",
+    "phone": "الهاتف",
+    "email": "البريد الإلكتروني",
+    "arrival": "تاريخ الوصول",
+    "departure": "تاريخ المغادرة",
+    "guests": "الضيوف",
+    "roomType": "نوع الغرفة",
+    "status": "الحالة",
+    "createdAt": "تاريخ الطلب",
+    "actions": "الإجراءات"
+  },
+  "filters": {
+    "searchPlaceholder": "البحث باسم العميل، الهاتف، أو رقم الحجز...",
+    "allStatuses": "جميع الحالات",
+    "allRoomTypes": "جميع أنواع الغرف"
+  },
+  "details": {
+    "title": "تفاصيل طلب الحجز",
+    "changeStatus": "تغيير حالة الطلب",
+    "deleteConfirm": "هل أنت تأكد من رغبتك في حذف هذا الحجز نهائياً؟",
+    "notes": "ملاحظات إضافية"
+  },
+  "actions": {
+    "view": "معاينة",
+    "delete": "حذف",
+    "save": "حفظ التغييرات",
+    "cancel": "إلغاء"
+  },
+  "roomsSection": {
+    "room": "الغرفة",
+    "type": "النوع",
+    "status": "الحالة",
+    "changeStatus": "تغيير الحالة",
+    "selectRoom": "اختر الغرفة",
+    "noAvailableRooms": "لا توجد غرف متاحة من هذا النوع حالياً"
+  },
+  "settingsData": {
+    "subtitle": "إعدادات النظام والمسؤول المباشر",
+    "systemConfig": "تكوين النظام وتفاصيل الفندق",
+    "hotelName": "اسم الفندق",
+    "location": "الموقع",
+    "database": "قاعدة البيانات",
+    "systemMode": "وضع النظام"
+  },
+  "errors": {
+    "updateFailed": "تعذر تحديث حالة الطلب. يرجى المحاولة مرة أخرى.",
+    "confirmConflict": "تعذر تأكيد الحجز: الغرفة محجوزة بالفعل لهذه التواريخ."
+  }
+}

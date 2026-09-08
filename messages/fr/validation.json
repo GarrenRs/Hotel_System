@@ -1,0 +1,13 @@
+{
+  "nameRequired": "Le nom complet est obligatoire",
+  "phoneRequired": "Le numéro de téléphone est obligatoire",
+  "emailInvalid": "L'adresse e-mail n'est pas valide",
+  "arrivalRequired": "La date d'arrivée est obligatoire",
+  "departureRequired": "La date de départ est obligatoire",
+  "guestsMin": "Nombre de personnes minimum: 1",
+  "guestsMax": "Nombre de personnes maximum: 10",
+  "roomRequired": "Veuillez choisir un type de chambre",
+  "roomIdRequired": "Veuillez sélectionner une chambre",
+  "usernameRequired": "Nom d'utilisateur obligatoire",
+  "passwordRequired": "Mot de passe obligatoire"
+}

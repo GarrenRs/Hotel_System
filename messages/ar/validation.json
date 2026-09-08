@@ -1,0 +1,13 @@
+{
+  "nameRequired": "الاسم الكامل مطلوب",
+  "phoneRequired": "رقم الهاتف مطلوب",
+  "emailInvalid": "البريد الإلكتروني غير صحيح",
+  "arrivalRequired": "تاريخ الوصول مطلوب",
+  "departureRequired": "تاريخ المغادرة مطلوب",
+  "guestsMin": "عدد الضيوف يجب أن يكون 1 على الأقل",
+  "guestsMax": "الحد الأقصى للضيوف هو 10",
+  "roomRequired": "يرجى اختيار نوع الغرفة",
+  "roomIdRequired": "يرجى اختيار الغرفة",
+  "usernameRequired": "اسم المستخدم مطلوب",
+  "passwordRequired": "كلمة المرور مطلوبة"
+}

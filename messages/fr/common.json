@@ -1,0 +1,58 @@
+{
+  "hotelName": "Hôtel Najma",
+  "tagline": "Luxe aristocratique et expérience d'exception au cœur d'Alger",
+  "stars": "Hôtel Najma",
+  "reserveNow": "Demande de Réservation",
+  "contactUs": "Contactez-nous",
+  "exploreMore": "Découvrir l'Hôtel",
+  "nav": {
+    "home": "Accueil",
+    "about": "À Propos",
+    "rooms": "Suites & Chambres",
+    "services": "Nos Services",
+    "restaurant": "Restaurant Gastronomique",
+    "pool": "Piscine",
+    "gym": "Salle de Sport",
+    "wedding": "Salle des Fêtes",
+    "gallery": "Galerie Photos",
+    "contact": "Contact"
+  },
+  "galleryDesc": "Explorez les photos et les installations luxueuses de l'hôtel à travers notre galerie interactive.",
+  "footer": {
+    "aboutTitle": "Hôtel Najma Alger",
+    "aboutDesc": "La destination de l'élégance et du raffinement à Alger. Une expérience hôtelière haut de gamme alliant luxe et sérénité.",
+    "quickLinks": "Liens Rapides",
+    "contactInfo": "Coordonnées",
+    "rights": "Tous droits réservés © 2026 Hôtel Najma (Najma Palace & Suites)",
+    "checkInCheckOut": "Arrivée / Départ",
+    "checkIn": "Arrivée",
+    "checkOut": "Départ",
+    "standard": "Standard d'Hospitalité de Luxe 4 Étoiles"
+  },
+  "status": {
+    "new": "Nouveau",
+    "pending": "En Attente",
+    "confirmed": "Confirmé",
+    "cancelled": "Annulé",
+    "available": "Disponible",
+    "occupied": "Occupée",
+    "cleaning": "Nettoyage",
+    "maintenance": "Maintenance"
+  },
+  "services": {
+    "restaurantSubtitle": "Expérience Gastronomique",
+    "poolSubtitle": "Détente et Bien-être",
+    "gymSubtitle": "Santé et Forme",
+    "weddingSubtitle": "Célébrations Royales et Événements"
+  },
+  "about": {},
+  "gallery": {
+    "subtitle": "Visite Visuelle",
+    "captionLobby": "Hall et réception de l'hôtel",
+    "captionTwinRoom": "Chambre élégante à lits jumeaux",
+    "captionRestaurant": "Restaurant gastronomique",
+    "captionPool": "Piscine de l'hôtel",
+    "captionBreakfast": "Buffet petit-déjeuner varié",
+    "captionConference": "Salle de conférence"
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "loginTitle": "Administration des Réservations",
+  "loginSubtitle": "Hôtel Najma - Accès réservé à la direction",
+  "secureAccess": "Panneau d'administration • Accès sécurisé",
+  "username": "Nom d'utilisateur",
+  "password": "Mot de passe",
+  "loginButton": "Se Connecter",
+  "logout": "Déconnexion",
+  "dashboard": "Tableau de Bord",
+  "dashboardSubtitle": "Résumé et indicateurs des demandes de réservation",
+  "recentReservationsTitle": "Demandes récentes",
+  "viewAll": "Voir tout",
+  "reservations": "Gestion des Demandes",
+  "rooms": "Gestion des Chambres",
+  "roomsSubtitle": "Panneau des chambres et suites en direct — l'état réel de chaque chambre",
+  "occupancy": "Occupation des Chambres",
+  "occupancySubtitle": "chambres occupées sur le total",
+  "settings": "Paramètres",
+  "stats": {
+    "total": "Total des Demandes",
+    "new": "Nouvelles Demandes",
+    "pending": "En Attente",
+    "confirmed": "Réservations Confirmées",
+    "cancelled": "Réservations Annulées"
+  },
+  "table": {
+    "id": "Code Réservation",
+    "customer": "Client",
+    "phone": "Téléphone",
+    "email": "E-mail",
+    "arrival": "Arrivée",
+    "departure": "Départ",
+    "guests": "Personnes",
+    "roomType": "Type de Chambre",
+    "status": "Statut",
+    "createdAt": "Date Demande",
+    "actions": "Actions"
+  },
+  "filters": {
+    "searchPlaceholder": "Rechercher par nom, téléphone, code...",
+    "allStatuses": "Tous les statuts",
+    "allRoomTypes": "Toutes les chambres"
+  },
+  "details": {
+    "title": "Détails de la Demande",
+    "changeStatus": "Modifier le statut",
+    "deleteConfirm": "Êtes-vous sûr de vouloir supprimer définitivement cette réservation ?",
+    "notes": "Remarques complémentaires"
+  },
+  "actions": {
+    "view": "Consulter",
+    "delete": "Supprimer",
+    "save": "Enregistrer",
+    "cancel": "Annuler"
+  },
+  "roomsSection": {
+    "room": "Chambre",
+    "type": "Type",
+    "status": "Statut",
+    "changeStatus": "Changer le statut",
+    "selectRoom": "Choisir la chambre",
+    "noAvailableRooms": "Aucune chambre disponible de ce type pour le moment"
+  },
+  "settingsData": {
+    "subtitle": "Paramètres du système et de l'administrateur",
+    "systemConfig": "Configuration du système et détails de l'hôtel",
+    "hotelName": "Nom de l'hôtel",
+    "location": "Emplacement",
+    "database": "Base de données",
+    "systemMode": "Mode système"
+  },
+  "errors": {
+    "updateFailed": "Impossible de mettre à jour le statut de la demande. Veuillez réessayer.",
+    "confirmConflict": "Confirmation impossible : la chambre est déjà réservée pour ces dates."
+  }
+}

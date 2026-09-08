@@ -1,0 +1,1 @@
+export const ADMIN_TOKEN_COOKIE = 'hotel_admin_token';

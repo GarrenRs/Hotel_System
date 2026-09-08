@@ -1,0 +1,7 @@
+{
+  "invalidCredentials": "Nom d'utilisateur ou mot de passe incorrect",
+  "reservationNotFound": "La demande de réservation est introuvable",
+  "serverError": "Une erreur est survenue lors du traitement, veuillez réessayer",
+  "unauthorized": "Accès non autorisé à cette page",
+  "roomsLoadFailed": "Impossible de charger les chambres disponibles pour le moment. Veuillez recharger la page et réessayer."
+}

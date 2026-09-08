@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --primary: #B99246;
+    --primary-dark: #8C6D27;
+    --secondary: #111111;
+    --background: #FAF9F7;
+    --white: #FFFFFF;
+    --text-primary: #333333;
+    --border: #EAEAEA;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+/* Custom Utilities for Luxury Design System */
+.bg-hotel-bg {
+  background-color: #FAF9F7;
+}
+
+.bg-hotel-primary {
+  background-color: #B99246;
+}
+
+.text-hotel-primary {
+  color: #B99246;
+}
+
+.border-hotel-primary {
+  border-color: #B99246;
+}
+
+.bg-hotel-dark {
+  background-color: #111111;
+}
+
+.border-hotel-border {
+  border-color: #EAEAEA;
+}
+
+.shadow-luxury {
+  box-shadow: 0 20px 40px -15px rgba(17, 17, 17, 0.07);
+}
+
+.shadow-luxury-hover {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.shadow-luxury-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 30px 60px -20px rgba(185, 146, 70, 0.2);
+}
+
+/* Glassmorphism effect */
+.glass-header {
+  background: rgba(17, 17, 17, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(12px);
+  border: 1px solid #EAEAEA;
+}
+
+.font-cairo {
+  font-family: var(--font-cairo), ui-sans-serif, system-ui, sans-serif !important;
+}
+
+.font-poppins {
+  font-family: var(--font-poppins), ui-sans-serif, system-ui, sans-serif !important;
+}

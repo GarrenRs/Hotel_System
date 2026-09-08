@@ -1,0 +1,36 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Room {
+  id           String        @id @default(uuid())
+  roomNumber   String
+  roomType     String
+  status       String        @default("AVAILABLE") // AVAILABLE | OCCUPIED | CLEANING | MAINTENANCE
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  reservations Reservation[]
+}
+
+model Reservation {
+  id            String    @id @default(uuid())
+  reservationId String    @unique
+  customerName  String
+  phone         String
+  email         String
+  arrivalDate   String
+  departureDate String
+  guests        Int
+  roomType      String
+  status        String    @default("NEW")
+  notes         String?
+  roomId        String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  room          Room?     @relation(fields: [roomId], references: [id], onDelete: SetNull)
+}

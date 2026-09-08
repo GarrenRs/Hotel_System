@@ -1,0 +1,58 @@
+{
+  "hotelName": "فندق نجمة",
+  "tagline": "فخامة أرستقراطية وتجربة استثنائية في قلب الجزائر العاصمة",
+  "stars": "فندق نجمة",
+  "reserveNow": "طلب حجز",
+  "contactUs": "تواصل معنا",
+  "exploreMore": "اكتشف الفندق",
+  "nav": {
+    "home": "الرئيسية",
+    "about": "عن الفندق",
+    "rooms": "الأجنحة والغرف",
+    "services": "خدماتنا",
+    "restaurant": "المطعم الفاخر",
+    "pool": "المسبح",
+    "gym": "القاعة الرياضية",
+    "wedding": "قاعة الحفلات",
+    "gallery": "معرض الصور",
+    "contact": "اتصل بنا"
+  },
+  "galleryDesc": "استكشف صور ومرافق الفندق الفاخرة من خلال معرض الصور التفاعلي.",
+  "footer": {
+    "aboutTitle": "فندق نجمة الجزائر",
+    "aboutDesc": "وجهة الأناقة والضيافة الرفيعة في الجزائر العاصمة. تجربة فندقية متكاملة تجمع بين الفخامة والراحة.",
+    "quickLinks": "روابط سريعة",
+    "contactInfo": "معلومات الاتصال",
+    "rights": "جميع الحقوق محفوظة © 2026 فندق نجمة (Najma Palace & Suites)",
+    "checkInCheckOut": "تسجيل الدخول / تسجيل الخروج",
+    "checkIn": "تسجيل الدخول",
+    "checkOut": "تسجيل الخروج",
+    "standard": "معيار ضيافة فاخر من فئة 4 نجوم"
+  },
+  "status": {
+    "new": "جديد",
+    "pending": "قيد الانتظار",
+    "confirmed": "مؤكد",
+    "cancelled": "ملغي",
+    "available": "متاحة",
+    "occupied": "مشغولة",
+    "cleaning": "قيد التنظيف",
+    "maintenance": "صيانة"
+  },
+  "services": {
+    "restaurantSubtitle": "تجربة طعام فاخرة",
+    "poolSubtitle": "استرخاء وعافية",
+    "gymSubtitle": "الصحة واللياقة",
+    "weddingSubtitle": "احتفالات وفعاليات ملكية"
+  },
+  "about": {},
+  "gallery": {
+    "subtitle": "جولة مرئية",
+    "captionLobby": "ردهة الفندق والاستقبال",
+    "captionTwinRoom": "غرفة أنيقة بسريرين",
+    "captionRestaurant": "مطعم الفندق الذوّاقة",
+    "captionPool": "مسبح الفندق",
+    "captionBreakfast": "بوفيه الإفطار المتنوع",
+    "captionConference": "قاعة المؤتمرات"
+  }
+}
