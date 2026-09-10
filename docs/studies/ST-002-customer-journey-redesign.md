@@ -1,4 +1,4 @@
-> **Type:** Study | **ID:** ST-002 | **Status:** APPROVED (implemented in Phase 10, pending Phase 10 closure) | **Based On:** docs/studies/ST-001-reservation-room-lifecycle.md, docs/audits/customer-journey.md | **Implementation Phase:** Phase 10 (ST-001 + ST-002 lifecycle)
+> **Type:** Study | **ID:** ST-002 | **Status:** CLOSED (implemented — Phase 10) | **Based On:** docs/studies/ST-001-reservation-room-lifecycle.md, docs/audits/customer-journey.md | **Implementation Phase:** Phase 10 (ST-001 + ST-002 lifecycle)
 
 # ST-002 — Customer Journey Redesign, Aligned with ST-001 Lifecycle (design-only, no code changes)
 

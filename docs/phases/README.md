@@ -23,13 +23,13 @@ and rationale are preserved for traceability.
 | 6 | Generic Template & Presentation Layer (branding, demo badge) | CLOSED (PARTIAL) | — | Branding/design kept; demo badge removed in Phase 8 |
 | 7 | Close the First Operational Line (guest ↔ front-desk) | CLOSED | audits/ | JWT auth, conflict fix, copy accuracy |
 | 8 | Strip Demo Layer, Finalize Production Template | CLOSED | Phase 7 | Last planned structural phase |
-| 10 | Reservation & Customer Journey Lifecycle (ST-001 + ST-002) | IMPLEMENTED (Tier 1 verified; **awaiting owner Tier 2**) | ST-001, ST-002 | 5-state lifecycle, row locks, date-aware booking |
+| 10 | Reservation & Customer Journey Lifecycle (ST-001 + ST-002) | CLOSED | ST-001, ST-002 | 5-state lifecycle, row locks, date-aware booking |
 
 **Status codes:** CLOSED (implemented, complete), CLOSED (SUPERSEDED) — content
 describes functionality no longer in the running system (useful for historical
-traceability only). IMPLEMENTED (Tier 1 verified) — built and machine-verified but
-not yet owner-walked; the phase becomes CLOSED after the owner's Tier 2 verification
-(project convention “one phase at a time”).
+traceability only). Phase 10 was registered IMPLEMENTED (Tier 1 verified) pending the
+owner's Tier 2 verification and became CLOSED on 2026-09-10 (project convention
+"one phase at a time").
 
 ## Phase status verification rule
 

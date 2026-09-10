@@ -54,6 +54,10 @@ AUDIT → STUDY → (APPROVAL) → IMPLEMENTATION PHASE → VERIFICATION → CLO
 
 ## Change log
 
+- **2026-09-10** — Owner Tier 2 walkthrough confirmed Phase 10; Phase 10 and studies
+  ST-001/ST-002 flipped to **CLOSED** together (phase doc, `phases/README.md`,
+  `studies/README.md`, both study headers, `PROJECT_STATE.md` §3/§4). Repo pushed to
+  git main (`b9fdba4`) for the field trial.
 - **2026-09-10** — Phase 10 (ST-001 + ST-002) implemented and Tier 1 verified; ST-001/ST-002
   flipped to APPROVED (implemented in Phase 10, pending Phase 10 closure), Phase 10 registered
   in `phases/README.md` as IMPLEMENTED (awaiting owner Tier 2), `architecture/*` rewritten to

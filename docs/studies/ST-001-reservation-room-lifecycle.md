@@ -1,4 +1,4 @@
-> **Type:** Study | **ID:** ST-001 | **Status:** APPROVED (implemented in Phase 10, pending Phase 10 closure) | **Based On:** docs/audits/ | **Implementation Phase:** Phase 10 (ST-001 + ST-002 lifecycle)
+> **Type:** Study | **ID:** ST-001 | **Status:** CLOSED (implemented — Phase 10) | **Based On:** docs/audits/ | **Implementation Phase:** Phase 10 (ST-001 + ST-002 lifecycle)
 
 # ST-001 — Reservation / Stay / Room Lifecycle: Design Analysis (no code changes)
 

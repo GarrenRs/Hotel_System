@@ -18,8 +18,8 @@ and verification.
 
 | ID | Title | Status | Phase |
 |---|---|---|---|
-| ST-001 | Reservation / Room / Stay Lifecycle Analysis | APPROVED (implemented in Phase 10, pending Phase 10 closure) | Phase 10 |
-| ST-002 | Customer Journey Redesign (guest-facing) | APPROVED (implemented in Phase 10, pending Phase 10 closure) | Phase 10 |
+| ST-001 | Reservation / Room / Stay Lifecycle Analysis | CLOSED (implemented — Phase 10) | Phase 10 |
+| ST-002 | Customer Journey Redesign (guest-facing) | CLOSED (implemented — Phase 10) | Phase 10 |
 
 **Status codes:** OPEN (design in progress or awaiting authorization), APPROVED
 (design authorized for implementation), REJECTED, SUPERSEDED (by a later study),

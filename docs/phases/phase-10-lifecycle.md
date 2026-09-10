@@ -1,4 +1,4 @@
-> **Type:** Implementation Phase | **ID:** Phase 10 | **Status:** IMPLEMENTED — Tier 1 verified; **awaiting owner Tier 2 verification** (do not mark CLOSED until the owner walks it through) | **Based On:** ST-001 (Reservation / Room / Stay Lifecycle), ST-002 (Customer Journey Redesign) | **Supersedes:** — | **Implementation Phase (studies):** this phase
+> **Type:** Implementation Phase | **ID:** Phase 10 | **Status:** CLOSED | **Based On:** ST-001 (Reservation / Room / Stay Lifecycle), ST-002 (Customer Journey Redesign) | **Supersedes:** — | **Implementation Phase (studies):** this phase
 
 # Phase 10 — Reservation & Customer Journey Lifecycle (ST-001 + ST-002)
 
@@ -214,7 +214,8 @@ guest form, and honest copy in ar + fr.
      currentGuests 2, todayDepartures 1) and unauthenticated admin API → 401.
 4. **Restore** — `npx tsx prisma/seed.ts` again after any scenario run.
 5. **Tier 2 (owner)** — walk the admin flows + guest form per the ST-001/ST-002 docs;
-   see the phase report. Do not mark this phase CLOSED until the owner confirms.
+   see the phase report. The owner confirmed everything works as expected on
+   2026-09-10; the phase (and studies ST-001/ST-002) were then closed together.
 
 ## Environment variables added/changed
 
