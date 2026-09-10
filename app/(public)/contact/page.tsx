@@ -7,7 +7,8 @@ import { useLanguage } from '@/components/providers/LanguageContext';
 import { ROOM_TYPES_LIST } from '@/lib/constants';
 import { HOTEL } from '@/config/hotel';
 import { MapPin, Phone, Mail } from 'lucide-react';
-import { FaWhatsapp } from 'react-icons/fa';
+import { FaWhatsapp, FaInstagram, FaFacebook } from 'react-icons/fa';
+import { FaTiktok } from 'react-icons/fa6';
 import { PhoneNumber } from '@/components/ui/PhoneNumber';
 
 function ContactBookingForm() {
@@ -55,6 +56,42 @@ export default function ContactPage() {
           <Mail className="w-6 h-6 text-[#B99246] mb-1" />
           <h3 className="font-bold text-xs uppercase tracking-wider text-[#111111]">{t('contact.email')}</h3>
           <a href={`mailto:${HOTEL.email}`} className="text-xs text-[#333333]/80 hover:text-[#B99246] block">{HOTEL.email}</a>
+        </div>
+      </section>
+
+      {/* Social Networks */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
+        <h3 className="text-xs font-bold text-[#B99246] uppercase tracking-widest">
+          {t('common.footer.followUs')}
+        </h3>
+        <div className="flex items-center justify-center gap-3">
+          <a
+            href={HOTEL.socials.instagram}
+            target="_blank"
+            rel="noreferrer"
+            className="w-11 h-11 rounded-full bg-white border border-[#CBC4B6] shadow-luxury flex items-center justify-center text-[#B99246] hover:bg-[#B99246] hover:text-white hover:border-[#B99246] transition-all"
+            aria-label="Instagram"
+          >
+            <FaInstagram className="w-4 h-4" />
+          </a>
+          <a
+            href={HOTEL.socials.facebook}
+            target="_blank"
+            rel="noreferrer"
+            className="w-11 h-11 rounded-full bg-white border border-[#CBC4B6] shadow-luxury flex items-center justify-center text-[#B99246] hover:bg-[#B99246] hover:text-white hover:border-[#B99246] transition-all"
+            aria-label="Facebook"
+          >
+            <FaFacebook className="w-4 h-4" />
+          </a>
+          <a
+            href={HOTEL.socials.tiktok}
+            target="_blank"
+            rel="noreferrer"
+            className="w-11 h-11 rounded-full bg-white border border-[#CBC4B6] shadow-luxury flex items-center justify-center text-[#B99246] hover:bg-[#B99246] hover:text-white hover:border-[#B99246] transition-all"
+            aria-label="TikTok"
+          >
+            <FaTiktok className="w-4 h-4" />
+          </a>
         </div>
       </section>
 

@@ -93,7 +93,7 @@ export async function seedDatabase(): Promise<void> {
     const ids: string[] = [];
     while (ids.length < count) {
       const suffix = Math.floor(1000 + Math.random() * 9000);
-      const candidate = `NP-2026-${suffix}`;
+      const candidate = `HB-2026-${suffix}`;
       if (!ids.includes(candidate) && !existingReservationIds.has(candidate)) {
         ids.push(candidate);
         existingReservationIds.add(candidate);

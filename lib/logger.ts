@@ -4,7 +4,7 @@ class Logger {
   private formatMessage(level: LogLevel, message: string, meta?: unknown): string {
     const timestamp = new Date().toISOString();
     const metaStr = meta ? ` | ${JSON.stringify(meta)}` : '';
-    return `[${timestamp}] [${level.toUpperCase()}] [Hotel Najma]: ${message}${metaStr}`;
+    return `[${timestamp}] [${level.toUpperCase()}] [Hotel HB]: ${message}${metaStr}`;
   }
 
   info(message: string, meta?: unknown) {

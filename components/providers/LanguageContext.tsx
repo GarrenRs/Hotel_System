@@ -53,7 +53,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const [locale, setLocaleState] = useState<Locale>('ar');
 
   useEffect(() => {
-    const saved = localStorage.getItem('hotel_locale') as Locale;
+    const saved = localStorage.getItem('hotel_hb_locale') as Locale;
     if (saved === 'ar' || saved === 'fr') {
       setTimeout(() => setLocaleState(saved), 0);
     }
@@ -61,7 +61,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   const setLocale = (newLocale: Locale) => {
     setLocaleState(newLocale);
-    localStorage.setItem('hotel_locale', newLocale);
+    localStorage.setItem('hotel_hb_locale', newLocale);
   };
 
   const dir = locale === 'ar' ? 'rtl' : 'ltr';

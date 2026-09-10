@@ -11,27 +11,29 @@ const maxPrice = Math.max(...prices);
 
 export const metadata: Metadata = {
   title: {
-    default: `${HOTEL.name} - Luxury 4-Star Hotel in Algiers`,
+    default: `${HOTEL.name} - Luxury 4-Star Hotel in Sidi Moussa, Algiers`,
     template: `%s | ${HOTEL.name}`,
   },
-  description: `${HOTEL.name} (${HOTEL.fullName}) is a luxury four-star hotel located in Algiers, Algeria. Offering premium suites, gourmet dining, swimming pool, fitness center, and royal wedding halls.`,
+  description: `${HOTEL.name} (${HOTEL.fullName}) is a luxury four-star hotel located in Sidi Moussa, Algiers, Algeria. Offering premium suites, gourmet dining, swimming pool, fitness center, and royal wedding halls.`,
   keywords: [
     HOTEL.name,
     HOTEL.fullName,
-    'Algiers Luxury Hotel',
+    'Sidi Moussa Luxury Hotel',
+    'Hotel Bouteldja Sidi Moussa',
     'Hotel 4 etoiles Algerie',
-    'Chambres et suites a Alger',
-    'حجز فندق الجزائر',
-    'فندق نجمة الجزائر العاصمة',
+    'Hotel a Sidi Moussa',
+    'Chambres et suites a Sidi Moussa',
+    'فندق بوثلجة سيدي موسى',
+    'حجز فندق سيدي موسى',
   ],
   authors: [{ name: HOTEL.fullName }],
-  metadataBase: new URL('https://najmapalace.com'),
+  metadataBase: new URL('https://hotel-hb.dz'),
   openGraph: {
     type: 'website',
     locale: 'ar_DZ',
-    url: 'https://najmapalace.com',
+    url: 'https://hotel-hb.dz',
     title: `${HOTEL.name} - Luxury 4-Star Hotel`,
-    description: `Experience prestige, elegance, and peace at ${HOTEL.name} in Algiers.`,
+    description: `Experience prestige, elegance, and peace at ${HOTEL.name} in Sidi Moussa, Algiers.`,
     siteName: HOTEL.name,
     images: [
       {
@@ -45,7 +47,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: `${HOTEL.name} - Luxury 4-Star Hotel`,
-    description: `Luxury hospitality in Algiers.`,
+    description: `Luxury hospitality in Sidi Moussa, Algiers.`,
     images: ['/images/hero/hero-bg.svg'],
   },
 };
@@ -60,7 +62,7 @@ export default function RootLayout({
     '@type': 'Hotel',
     name: HOTEL.fullName,
     alternateName: HOTEL.name,
-    image: 'https://najmapalace.com/images/hero/hero-bg.svg',
+    image: 'https://hotel-hb.dz/images/hero/hero-bg.svg',
     starRating: {
       '@type': 'Rating',
       ratingValue: '4',
@@ -68,7 +70,7 @@ export default function RootLayout({
     address: {
       '@type': 'PostalAddress',
       streetAddress: HOTEL.address,
-      addressLocality: 'Algiers',
+      addressLocality: 'Sidi Moussa',
       addressRegion: 'Algiers',
       addressCountry: 'DZ',
     },

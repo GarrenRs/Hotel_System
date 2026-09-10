@@ -1,7 +1,7 @@
 {
-  "hotelName": "Hôtel Najma",
-  "tagline": "Luxe aristocratique et expérience d'exception au cœur d'Alger",
-  "stars": "Hôtel Najma",
+  "hotelName": "Hôtel Bouteldja",
+  "tagline": "Luxe aristocratique et expérience d'exception au cœur de Sidi Moussa",
+  "stars": "Hôtel Bouteldja",
   "reserveNow": "Demande de Réservation",
   "contactUs": "Contactez-nous",
   "exploreMore": "Découvrir l'Hôtel",
@@ -19,15 +19,16 @@
   },
   "galleryDesc": "Explorez les photos et les installations luxueuses de l'hôtel à travers notre galerie interactive.",
   "footer": {
-    "aboutTitle": "Hôtel Najma Alger",
-    "aboutDesc": "La destination de l'élégance et du raffinement à Alger. Une expérience hôtelière haut de gamme alliant luxe et sérénité.",
+    "aboutTitle": "Hôtel Bouteldja Sidi Moussa",
+    "aboutDesc": "La destination de l'élégance et du raffinement à Sidi Moussa. Une expérience hôtelière haut de gamme alliant luxe et sérénité.",
     "quickLinks": "Liens Rapides",
     "contactInfo": "Coordonnées",
-    "rights": "Tous droits réservés © 2026 Hôtel Najma (Najma Palace & Suites)",
+    "rights": "Tous droits réservés © 2026 Hôtel Bouteldja",
     "checkInCheckOut": "Arrivée / Départ",
     "checkIn": "Arrivée",
     "checkOut": "Départ",
-    "standard": "Standard d'Hospitalité de Luxe 4 Étoiles"
+    "standard": "Standard d'Hospitalité de Luxe 4 Étoiles",
+    "followUs": "Suivez-nous"
   },
   "status": {
     "new": "Nouveau",

@@ -1,7 +1,7 @@
 {
   "hero": {
-    "welcome": "Bienvenue à l'Hôtel Najma",
-    "title": "Luxe & Raffinement à Alger",
+    "welcome": "Bienvenue à l'Hôtel Bouteldja",
+    "title": "Luxe & Raffinement à Sidi Moussa",
     "subtitle": "Profitez d'un séjour prestige 4 étoiles, de prestations sur-mesure et d'un cadre d'exception.",
     "ctaBooking": "Réservez Votre Séjour",
     "ctaExplore": "Explorer nos Suites"
@@ -14,9 +14,9 @@
   },
   "aboutShort": {
     "title": "L'hospitalité algérienne au sommet du luxe",
-    "subtitle": "À Propos de l'Hôtel Najma",
-    "description": "Situé dans un cadre privilégié à Alger, l'Hôtel Najma offre une expérience de séjour luxueuse qui combine architecture contemporaine et confort absolu.",
-    "aboutLongDesc": "Les chambres et suites de l'Hôtel Najma se distinguent par leur design intérieur raffiné, un mobilier luxueux et un éclairage apaisant qui procurent confort et détente. L'hôtel propose des installations sportives et de loisirs exceptionnelles, notamment une piscine, un centre de remise en forme, un restaurant gastronomique et une salle de réception royale."
+    "subtitle": "À Propos de l'Hôtel Bouteldja",
+    "description": "Situé dans un cadre privilégié à Sidi Moussa, l'Hôtel Bouteldja offre une expérience de séjour luxueuse qui combine architecture contemporaine et confort absolu.",
+    "aboutLongDesc": "Les chambres et suites de l'Hôtel Bouteldja se distinguent par leur design intérieur raffiné, un mobilier luxueux et un éclairage apaisant qui procurent confort et détente. L'hôtel propose des installations sportives et de loisirs exceptionnelles, notamment une piscine, un centre de remise en forme, un restaurant gastronomique et une salle de réception royale."
   },
   "amenities": {
     "title": "Nos Équipements de Prestige",
@@ -30,7 +30,7 @@
   },
   "testimonials": {
     "title": "Avis de nos Obôtes de Marque",
-    "subtitle": "Des moments inoubliables à l'Hôtel Najma",
+    "subtitle": "Des moments inoubliables à l'Hôtel Bouteldja",
     "t1": "Séjour d'une qualité remarquable. Le personnel est aux petits soins, la chambre d'une propreté irréprochable et le restaurant exquis.",
     "t2": "Sans doute l'un des plus beaux établissements de la région. Notre réception de mariage était tout simplement féerique.",
     "t3": "La piscine et le centre de fitness sont de niveau international. Accueil chaleureux et cadre très apaisant."
@@ -41,11 +41,11 @@
     "poolTitle": "Une piscine somptueuse et une ambiance relaxante",
     "poolDesc": "Profitez de la baignade et de la détente dans notre piscine conçue selon les normes de sécurité les plus strictes, avec des chaises longues confortables et un service de boissons.",
     "restaurantTitle": "Saveurs locales et internationales de prestige",
-    "restaurantDesc": "Le restaurant de l'Hôtel Najma propose une sélection exquise de plats traditionnels algériens et internationaux, préparés par des chefs professionnels.",
+    "restaurantDesc": "Le restaurant de l'Hôtel Bouteldja propose une sélection exquise de plats traditionnels algériens et internationaux, préparés par des chefs professionnels.",
     "breakfastDesc": "Buffet petit-déjeuner somptueux (07:00 - 10:30)",
     "lunchDinnerDesc": "Déjeuner et Dîner avec menu gastronomique (12:30 - 23:00)",
     "weddingTitle": "Une salle royale pour immortaliser vos plus beaux souvenirs",
-    "weddingDesc": "La salle de réception de l'Hôtel Najma offre une grande capacité, un décor luxueux, des systèmes d'éclairage et de sonorisation avancés, ainsi qu'une équipe professionnelle."
+    "weddingDesc": "La salle de réception de l'Hôtel Bouteldja offre une grande capacité, un décor luxueux, des systèmes d'éclairage et de sonorisation avancés, ainsi qu'une équipe professionnelle."
   },
   "aboutLongDesc": "Vivez un séjour inoubliable où le luxe rencontre la tranquillité. Notre personnel dévoué veille à ce que chaque moment soit parfait.",
   "features": {

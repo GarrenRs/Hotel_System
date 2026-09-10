@@ -4,7 +4,7 @@ export const ROOM_TYPES_LIST = [
   {
     id: RoomType.DELUXE_SUITE,
     key: 'deluxeSuite',
-    priceDZD: 24500,
+    priceDZD: 22000,
     area: '45 m²',
     capacity: 2,
     image: '/images/rooms/room-standard-double.webp',
@@ -12,7 +12,7 @@ export const ROOM_TYPES_LIST = [
   {
     id: RoomType.EXECUTIVE_SUITE,
     key: 'executiveSuite',
-    priceDZD: 34500,
+    priceDZD: 32000,
     area: '65 m²',
     capacity: 3,
     image: '/images/rooms/room-standard-double.webp',
@@ -20,7 +20,7 @@ export const ROOM_TYPES_LIST = [
   {
     id: RoomType.ROYAL_SUITE,
     key: 'royalSuite',
-    priceDZD: 59000,
+    priceDZD: 55000,
     area: '110 m²',
     capacity: 4,
     image: '/images/rooms/room-standard-double.webp',
@@ -28,7 +28,7 @@ export const ROOM_TYPES_LIST = [
   {
     id: RoomType.STANDARD_DOUBLE,
     key: 'standardDouble',
-    priceDZD: 17500,
+    priceDZD: 16000,
     area: '32 m²',
     capacity: 2,
     image: '/images/rooms/room-standard-double.webp',
@@ -36,7 +36,7 @@ export const ROOM_TYPES_LIST = [
   {
     id: RoomType.FAMILY_SUITE,
     key: 'familySuite',
-    priceDZD: 41500,
+    priceDZD: 38000,
     area: '80 m²',
     capacity: 5,
     image: '/images/rooms/room-standard-twin.webp',

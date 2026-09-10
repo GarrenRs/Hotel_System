@@ -77,7 +77,7 @@ export class ReservationService {
 
   private generateReservationId(): string {
     const randomSuffix = Math.floor(1000 + Math.random() * 9000);
-    return `NP-2026-${randomSuffix}`;
+    return `HB-2026-${randomSuffix}`;
   }
 
   private static isContentionError(error: unknown): boolean {

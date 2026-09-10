@@ -7,11 +7,20 @@ import { useLanguage } from '@/components/providers/LanguageContext';
 import { HOTEL } from '@/config/hotel';
 import { NAV_ITEMS } from '@/lib/constants';
 import { MapPin, Phone, Mail } from 'lucide-react';
-import { FaInstagram, FaFacebook } from 'react-icons/fa';
+import { FaInstagram, FaFacebook, FaWhatsapp } from 'react-icons/fa';
+import { FaTiktok } from 'react-icons/fa6';
 import { PhoneNumber } from '@/components/ui/PhoneNumber';
 
 export const Footer: React.FC = () => {
   const { t } = useLanguage();
+
+  const socialLinks = [
+    { href: HOTEL.socials.instagram, label: 'Instagram', Icon: FaInstagram },
+    { href: HOTEL.socials.facebook, label: 'Facebook', Icon: FaFacebook },
+    { href: HOTEL.socials.tiktok, label: 'TikTok', Icon: FaTiktok },
+    { href: `https://wa.me/${HOTEL.whatsapp.replace('+', '')}`, label: 'WhatsApp', Icon: FaWhatsapp },
+    { href: `mailto:${HOTEL.email}`, label: 'Email', Icon: Mail },
+  ];
 
   return (
     <footer className="bg-[#111111] text-white/80 border-t border-[#B99246]/20 pt-16 pb-12">
@@ -31,25 +40,19 @@ export const Footer: React.FC = () => {
             <p className="text-xs leading-relaxed text-white/70">
               {t('common.footer.aboutDesc')}
             </p>
-            <div className="flex items-center gap-3 pt-2">
-              <a
-                href={HOTEL.socials.instagram}
-                target="_blank"
-                rel="noreferrer"
-                className="w-9 h-9 rounded-full bg-white/5 border border-[#B99246]/30 flex items-center justify-center text-[#B99246] hover:bg-[#B99246] hover:text-[#111111] transition-all"
-                aria-label="Instagram"
-              >
-                <FaInstagram className="w-4 h-4" />
-              </a>
-              <a
-                href={HOTEL.socials.facebook}
-                target="_blank"
-                rel="noreferrer"
-                className="w-9 h-9 rounded-full bg-white/5 border border-[#B99246]/30 flex items-center justify-center text-[#B99246] hover:bg-[#B99246] hover:text-[#111111] transition-all"
-                aria-label="Facebook"
-              >
-                <FaFacebook className="w-4 h-4" />
-              </a>
+            <div className="flex items-center gap-3 pt-2 flex-wrap">
+              {socialLinks.map(({ href, label, Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target={href.startsWith('mailto') ? undefined : '_blank'}
+                  rel="noreferrer"
+                  className="w-9 h-9 rounded-full bg-white/5 border border-[#B99246]/30 flex items-center justify-center text-[#B99246] hover:bg-[#B99246] hover:text-[#111111] transition-all"
+                  aria-label={label}
+                >
+                  <Icon className="w-4 h-4" />
+                </a>
+              ))}
             </div>
           </div>
 
