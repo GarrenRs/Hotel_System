@@ -1,3 +1,5 @@
+> **Type:** Implementation Phase | **ID:** Phase 4 | **Status:** CLOSED | **Superseded By:** Phase 8
+
 # Phase 4 — Realistic, Self-Renewing Seed Data
 
 Per-session seeding shared between the demo init route and the local seed CLI, with relative dates and realistic, brand-neutral content.
@@ -34,4 +36,4 @@ Every Phase 3 visitor session started with an empty hotel — the dashboard and 
 1. Restore the pre-Phase-4 `app/api/demo/init/route.ts` (log-only placeholder, zero rows created).
 2. Restore the old `prisma/seed.ts` (fixed-date sample reservations, "test" wording — Phase 1 data shape, now missing required `sessionId`).
 3. Delete `lib/seed.ts` and remove its imports from `prisma/seed.ts` and `app/api/demo/init/route.ts`.
-4. Delete `docs/phase-4-seed.md` and revert the Phase Tracker in `docs/PROJECT_STATE.md`.
+4. Delete `docs/phases/phase-4-seed.md` and revert the Phase Tracker in `docs/PROJECT_STATE.md`.

@@ -1,3 +1,5 @@
+> **Type:** Implementation Phase | **ID:** Phase 4b | **Status:** CLOSED | **Based On:** Phase 4 observations | **Superseded By:** Phase 8
+
 # Phase 4b — Bugfixes: Reservation Reference Uniqueness + First-Load Latency
 
 Bugfix phase (between Phase 4 and Phase 5). Two targeted fixes resolving the two observations logged at the end of Phase 4. No new features.
@@ -50,4 +52,4 @@ Bugfix phase (between Phase 4 and Phase 5). Two targeted fixes resolving the two
 3. Restore `middleware.ts` to the awaited `/api/demo/init` fetch (blocking).
 4. Revert the bootstrap retries in `app/admin/(protected)/dashboard/page.tsx` and `app/admin/(protected)/reservations/page.tsx`.
 5. Restore `lib/seed.ts` room create + status-update transactions and sequential reservation creates.
-6. Delete `docs/phase-4b-bugfixes.md` and revert the Phase Tracker/changelog in `docs/PROJECT_STATE.md` and the resolved entries in `docs/notes.md`.
+6. Delete `docs/phases/phase-4b-bugfixes.md` and revert the Phase Tracker/changelog in `docs/PROJECT_STATE.md` and the resolved entries in `docs/archive/notes-journal.md`.

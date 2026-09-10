@@ -57,7 +57,7 @@ Pure information card: hotel name, location, "SQLite ORM (Prisma Repository Patt
 - `/api/admin/logout` (POST) — deletes the unused cookie.
 - `/api/admin/stats` (GET) — reservation counts per status only (`stats/route.ts:19`, `repositories/reservation/prisma.repository.ts:96-110`). No revenue, no occupancy-by-date, no arrivals/departures list.
 - `/api/reservations` (GET/POST, `route.ts`), `/api/reservations/[id]` (GET/PATCH/DELETE), `/api/rooms` (GET), `/api/rooms/[id]` (PATCH) — all require only `demo_session_id` (see Auth).
-- Known behavior worth noting: `PATCH /api/rooms/[id]` returns **500** for an invalid status string or a non-owned room (`rooms/[id]/route.ts:45-53` catch-all; `room.service.ts:24-31` throws a plain `Error("Invalid status…")`), not 400/404 — recorded in `docs/notes.md` as a deferred polish item. The rooms UI never triggers it (buttons send valid statuses), so impact is low.
+- Known behavior worth noting: `PATCH /api/rooms/[id]` returns **500** for an invalid status string or a non-owned room (`rooms/[id]/route.ts:45-53` catch-all; `room.service.ts:24-31` throws a plain `Error("Invalid status…")`), not 400/404 — recorded in `docs/archive/notes-journal.md` as a deferred polish item. The rooms UI never triggers it (buttons send valid statuses), so impact is low.
 
 ---
 

@@ -1,6 +1,8 @@
+> **Type:** Implementation Phase | **ID:** Phase 7 | **Status:** CLOSED | **Based On:** audits/ (all three) | **Superseded By:** —
+
 # Phase 7 — Close the First Operational Line (Guest ↔ Front-Desk Employee)
 
-Closes the first real operating loop of the demo: a guest books through the public site, and a front-desk employee confirms/manages it in the admin panel — every step now behaving correctly, visibly, and securely. Seven ordered tasks, all drawn from the three audit reports in `docs/audit/`.
+Closes the first real operating loop of the demo: a guest books through the public site, and a front-desk employee confirms/manages it in the admin panel — every step now behaving correctly, visibly, and securely. Seven ordered tasks, all drawn from the three audit reports in `docs/audits/`.
 
 ## What Changed
 
@@ -45,11 +47,11 @@ Three of six gallery captions were mismatched (e.g. a breakfast photo labeled "F
 - All four now import `HOTEL` from `@/config/hotel` and use `${HOTEL.name}`-driven alts (e.g. `${HOTEL.name} Restaurant`).
 
 ### Out-of-scope observations logged
-Additional findings (message-key label reuse, `...` empty states, refresh button labeled "Save changes", etc.) were recorded in `docs/notes.md` under "Observed but out of scope" — not fixed here.
+Additional findings (message-key label reuse, `...` empty states, refresh button labeled "Save changes", etc.) were recorded in `docs/archive/notes-journal.md` under "Observed but out of scope" — not fixed here.
 
 ## Why
 
-- **Task 1** — the audit's single most serious gap (`docs/audit/admin-panel.md`, `docs/audit/external-internal-balance.md`): without enforcement, "admin" meant nothing, so the employee half of the operational line was trusting a public cookie. Task 1 makes the demo behave like the real product while leaving the friction-free demo login intact.
+- **Task 1** — the audit's single most serious gap (`docs/audits/admin-panel.md`, `docs/audits/external-internal-balance.md`): without enforcement, "admin" meant nothing, so the employee half of the operational line was trusting a public cookie. Task 1 makes the demo behave like the real product while leaving the friction-free demo login intact.
 - **Task 2** — a cancelled stay blocking the same room (or double-cancelling to free it up) was a false conflict and a dead end at the front desk.
 - **Task 3** — the "Reserve" paths on room cards silently ignored the chosen room, so the public flow could hand the front desk the wrong room type.
 - **Task 4** — a failed confirm with no feedback is the #1 confusing moment for a demoing prospect's staff; the banner mirrors the already-established rooms-page pattern.

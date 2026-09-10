@@ -27,6 +27,15 @@ function isoDateLocal(date: Date): string {
  * dashboard always shows a believable mix of past, current, and upcoming
  * stays regardless of when the seed runs.
  *
+ * The scenario below exercises every lifecycle state (ST-001 §L):
+ *  - CHECKED_OUT stays that already finished (rooms freed, 203 left CLEANING),
+ *  - guest CHECKED_IN today and leaving today (rooms OCCUPIED; todayDepartures
+ *    metric = 1),
+ *  - an in-house CHECKED_IN guest (302 OCCUPIED),
+ *  - CONFIRMED upcoming stays on non-overlapping periods (401 holds two),
+ *  - a NEW request awaiting approval, a CANCELLED booking freed its room,
+ *  - one room under MAINTENANCE (402).
+ *
  * This is a manual, CLI-only seeding tool (run via `npx prisma db seed`) used
  * to give a new installation a realistic starting dataset. It is NOT exposed
  * through any HTTP route. Any existing rooms/reservations are replaced; do not
@@ -99,35 +108,35 @@ export async function seedDatabase(): Promise<void> {
       phone: '+34 612 345 678',
       email: 'elena.vasquez@example.com',
       arrivalDate: stayDate(-14),
-      departureDate: stayDate(-10),
+      departureDate: stayDate(-11),
       guests: 2,
       roomType: RoomType.STANDARD_DOUBLE,
-      status: ReservationStatus.CONFIRMED,
-      notes: 'Checked in after 23:00. Late arrival handled at the front desk.',
-      roomNumber: '101',
+      status: ReservationStatus.CHECKED_OUT,
+      notes: 'Late arrival handled at the front desk. Sailed through checkout.',
+      roomNumber: '104',
     },
     {
-      customerName: 'James Mitchell',
-      phone: '+44 7911 123456',
-      email: 'james.mitchell@example.com',
-      arrivalDate: stayDate(-7),
-      departureDate: stayDate(-4),
-      guests: 1,
-      roomType: RoomType.FAMILY_SUITE,
-      status: ReservationStatus.CONFIRMED,
-      notes: 'Conference rate — requested an early last-morning checkout.',
-      roomNumber: '401',
+      customerName: 'Amine Bensalem',
+      phone: '+216 22 345 678',
+      email: 'amine.bensalem@example.com',
+      arrivalDate: stayDate(-2),
+      departureDate: stayDate(0),
+      guests: 2,
+      roomType: RoomType.DELUXE_SUITE,
+      status: ReservationStatus.CHECKED_OUT,
+      notes: 'Checked out this morning. Room handed to housekeeping (CLEANING).',
+      roomNumber: '203',
     },
     {
       customerName: 'Fatima Al-Hassan',
       phone: '+971 50 123 4567',
       email: 'fatima.alhassan@example.com',
       arrivalDate: stayDate(-2),
-      departureDate: stayDate(3),
+      departureDate: stayDate(0),
       guests: 3,
       roomType: RoomType.STANDARD_DOUBLE,
-      status: ReservationStatus.CONFIRMED,
-      notes: 'Anniversary stay. Champagne and fruit platter set up in the room.',
+      status: ReservationStatus.CHECKED_IN,
+      notes: 'Anniversary stay. Champagne and fruit platter set up in the room. Leaves today.',
       roomNumber: '101',
     },
     {
@@ -138,7 +147,7 @@ export async function seedDatabase(): Promise<void> {
       departureDate: stayDate(5),
       guests: 2,
       roomType: RoomType.EXECUTIVE_SUITE,
-      status: ReservationStatus.CONFIRMED,
+      status: ReservationStatus.CHECKED_IN,
       notes: 'Quiet room preferred, away from the elevator bank.',
       roomNumber: '302',
     },
@@ -152,6 +161,18 @@ export async function seedDatabase(): Promise<void> {
       roomType: RoomType.FAMILY_SUITE,
       status: ReservationStatus.CONFIRMED,
       notes: 'Family stay — one extra bed required for the children.',
+      roomNumber: '401',
+    },
+    {
+      customerName: 'James Mitchell',
+      phone: '+44 7911 123456',
+      email: 'james.mitchell@example.com',
+      arrivalDate: stayDate(1),
+      departureDate: stayDate(4),
+      guests: 1,
+      roomType: RoomType.FAMILY_SUITE,
+      status: ReservationStatus.CONFIRMED,
+      notes: 'Conference rate — requested an early last-morning checkout.',
       roomNumber: '401',
     },
     {
@@ -174,8 +195,8 @@ export async function seedDatabase(): Promise<void> {
       departureDate: stayDate(10),
       guests: 2,
       roomType: RoomType.STANDARD_DOUBLE,
-      status: ReservationStatus.PENDING,
-      notes: 'Awaiting payment confirmation. Vegetarian breakfast requested.',
+      status: ReservationStatus.NEW,
+      notes: 'Awaiting room assignment approval. Vegetarian breakfast requested.',
       roomNumber: '102',
     },
     {
@@ -187,7 +208,7 @@ export async function seedDatabase(): Promise<void> {
       guests: 1,
       roomType: RoomType.DELUXE_SUITE,
       status: ReservationStatus.CANCELLED,
-      notes: 'Cancelled by guest — change in travel plans.',
+      notes: 'Cancelled by guest — change in travel plans. Room 202 back to AVAILABLE.',
       roomNumber: '202',
     },
   ];

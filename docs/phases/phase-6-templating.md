@@ -1,3 +1,5 @@
+> **Type:** Implementation Phase | **ID:** Phase 6 | **Status:** CLOSED | **Superseded By:** Phase 8 (demo layer removed; branding/design choices preserved)
+
 # Phase 6 — Generic Template & Demo Presentation Layer
 
 ## What Changed

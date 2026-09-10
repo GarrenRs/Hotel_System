@@ -4,6 +4,23 @@ import { IRoomRepository } from './interface';
 import { RoomEntity } from '@/domain/room/entities';
 import { CreateRoomInput, RoomFilterInput, RoomStats } from '@/domain/room/types';
 import { RoomStatus } from '@/domain/room/enums';
+import { ReservationStatus } from '@/domain/reservation/enums';
+
+type Tx = Prisma.TransactionClient;
+
+function toEntity(
+  room: Awaited<ReturnType<typeof prisma.room.findUnique>> & {
+    reservations?: Array<{ customerName: string; departureDate: string }> | undefined;
+  }
+): RoomEntity {
+  const { reservations, ...rest } = room;
+  const currentGuest = reservations && reservations.length > 0 ? reservations[0] : null;
+  return {
+    ...rest,
+    currentGuestName: currentGuest?.customerName ?? null,
+    currentGuestDeparture: currentGuest?.departureDate ?? null,
+  };
+}
 
 export class PrismaRoomRepository implements IRoomRepository {
   async create(data: CreateRoomInput): Promise<RoomEntity> {
@@ -40,23 +57,36 @@ export class PrismaRoomRepository implements IRoomRepository {
     const rooms = await prisma.room.findMany({
       where,
       orderBy: { roomNumber: 'asc' },
+      include: {
+        reservations: {
+          where: { status: ReservationStatus.CHECKED_IN },
+          select: { customerName: true, departureDate: true },
+          take: 1,
+        },
+      },
     });
 
-    return rooms;
+    return rooms.map(toEntity);
   }
 
-  async findById(id: string): Promise<RoomEntity | null> {
-    const room = await prisma.room.findUnique({
+  async findById(id: string, tx?: Tx): Promise<RoomEntity | null> {
+    const client = tx ?? prisma;
+    const room = await client.room.findUnique({
       where: { id },
     });
 
     return room;
   }
 
-  async updateStatus(id: string, status: string): Promise<RoomEntity> {
-    await this.assertExists(id);
+  async lockRoomById(id: string, tx: Tx): Promise<void> {
+    await tx.$queryRaw`SELECT "id" FROM "Room" WHERE "id" = ${id} FOR UPDATE`;
+  }
 
-    const updated = await prisma.room.update({
+  async updateStatus(id: string, status: string, tx?: Tx): Promise<RoomEntity> {
+    await this.assertExists(id, tx);
+
+    const client = tx ?? prisma;
+    const updated = await client.room.update({
       where: { id },
       data: { status },
     });
@@ -90,8 +120,9 @@ export class PrismaRoomRepository implements IRoomRepository {
     };
   }
 
-  private async assertExists(id: string): Promise<void> {
-    const existing = await prisma.room.findUnique({
+  private async assertExists(id: string, tx?: Tx): Promise<void> {
+    const client = tx ?? prisma;
+    const existing = await client.room.findUnique({
       where: { id },
       select: { id: true },
     });

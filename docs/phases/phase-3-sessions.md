@@ -1,3 +1,5 @@
+> **Type:** Implementation Phase | **ID:** Phase 3 | **Status:** CLOSED | **Superseded By:** Phase 8
+
 # Phase 3 — Isolated Demo Sessions
 
 Cookie-based `sessionId` scoping, middleware session bootstrap, and a secret-protected 24h cleanup endpoint.

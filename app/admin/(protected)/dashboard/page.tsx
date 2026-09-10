@@ -3,24 +3,111 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useLanguage } from '@/components/providers/LanguageContext';
-import { ReservationStats } from '@/domain/reservation/types';
+import { AdminStats } from '@/domain/reservation/types';
 import { ReservationEntity } from '@/domain/reservation/entities';
-import { RoomEntity } from '@/domain/room/entities';
-import { RoomStatus } from '@/domain/room/enums';
 import { StatusBadge } from '@/components/admin/StatusBadge';
-import { Sparkles, Clock, CheckCircle2, XCircle, ArrowRight, Layers, BedDouble } from 'lucide-react';
 import { ROOM_TYPES_LIST } from '@/lib/constants';
+import {
+  Layers,
+  Sparkles,
+  DoorOpen,
+  CheckCircle2,
+  Wrench,
+  CalendarCheck,
+  CalendarPlus,
+  CalendarX,
+  Users,
+  ArrowRight,
+} from 'lucide-react';
 
 const BOOT_RETRY_ATTEMPTS = 4;
 const BOOT_RETRY_DELAY_MS = 1200;
 
+type NumericAdminStat =
+  | 'totalRooms'
+  | 'availableRooms'
+  | 'occupiedRooms'
+  | 'cleaningRooms'
+  | 'maintenanceRooms'
+  | 'reservedUpcoming'
+  | 'todayArrivals'
+  | 'todayDepartures';
+
+interface StatCard {
+  key: NumericAdminStat;
+  labelKey: string;
+  icon: React.ReactNode;
+  className: string;
+  iconClassName: string;
+}
+
+const ROOM_STAT_CARDS: StatCard[] = [
+  {
+    key: 'totalRooms',
+    labelKey: 'admin.stats.totalRooms',
+    icon: <Layers className="w-5 h-5" />,
+    className: 'bg-white border-[#EAEAEA]',
+    iconClassName: 'text-[#B99246]',
+  },
+  {
+    key: 'availableRooms',
+    labelKey: 'admin.stats.availableRooms',
+    icon: <CheckCircle2 className="w-5 h-5" />,
+    className: 'bg-emerald-50/50 border-emerald-100',
+    iconClassName: 'text-emerald-600',
+  },
+  {
+    key: 'occupiedRooms',
+    labelKey: 'admin.stats.occupiedRooms',
+    icon: <DoorOpen className="w-5 h-5" />,
+    className: 'bg-blue-50/50 border-blue-100',
+    iconClassName: 'text-blue-600',
+  },
+  {
+    key: 'cleaningRooms',
+    labelKey: 'admin.stats.cleaningRooms',
+    icon: <Sparkles className="w-5 h-5" />,
+    className: 'bg-amber-50/50 border-amber-100',
+    iconClassName: 'text-amber-600',
+  },
+  {
+    key: 'maintenanceRooms',
+    labelKey: 'admin.stats.maintenanceRooms',
+    icon: <Wrench className="w-5 h-5" />,
+    className: 'bg-rose-50/50 border-rose-100',
+    iconClassName: 'text-rose-600',
+  },
+];
+
+const RESERVATION_STAT_CARDS: StatCard[] = [
+  {
+    key: 'reservedUpcoming',
+    labelKey: 'admin.stats.reservedUpcoming',
+    icon: <CalendarCheck className="w-5 h-5" />,
+    className: 'bg-white border-[#EAEAEA]',
+    iconClassName: 'text-[#B99246]',
+  },
+  {
+    key: 'todayArrivals',
+    labelKey: 'admin.stats.todayArrivals',
+    icon: <CalendarPlus className="w-5 h-5" />,
+    className: 'bg-emerald-50/50 border-emerald-100',
+    iconClassName: 'text-emerald-600',
+  },
+  {
+    key: 'todayDepartures',
+    labelKey: 'admin.stats.todayDepartures',
+    icon: <CalendarX className="w-5 h-5" />,
+    className: 'bg-amber-50/50 border-amber-100',
+    iconClassName: 'text-amber-600',
+  },
+];
+
 export default function AdminDashboardPage() {
   const { t } = useLanguage();
-  const [stats, setStats] = useState<ReservationStats | null>(null);
+  const [stats, setStats] = useState<AdminStats | null>(null);
   const [recentReservations, setRecentReservations] = useState<ReservationEntity[]>([]);
   const [loading, setLoading] = useState(true);
-  const [rooms, setRooms] = useState<RoomEntity[]>([]);
-  const [roomsLoaded, setRoomsLoaded] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -35,7 +122,7 @@ export default function AdminDashboardPage() {
         if (cancelled) return;
 
         let seeded = false;
-        if (statsData.success && (statsData.data?.total ?? 0) > 0) {
+        if (statsData.success && statsData.data) {
           setStats(statsData.data);
           seeded = true;
         }
@@ -44,7 +131,6 @@ export default function AdminDashboardPage() {
           seeded = true;
         }
 
-        // Keep the loading states visible instead of flashing an empty page.
         if (!seeded && attempt < BOOT_RETRY_ATTEMPTS) {
           setTimeout(() => fetchBoot(attempt + 1), BOOT_RETRY_DELAY_MS);
           return;
@@ -70,31 +156,29 @@ export default function AdminDashboardPage() {
     };
   }, []);
 
-  useEffect(() => {
-    let cancelled = false;
+  const roomTypeTitle = (roomType: string): string => {
+    const room = ROOM_TYPES_LIST.find((r) => r.id === roomType);
+    return room ? t(`rooms.${room.key}.title`) : roomType;
+  };
 
-    (async () => {
-      try {
-        const res = await fetch('/api/rooms');
-        const result = await res.json();
-        if (!cancelled && result.success) {
-          setRooms(result.data);
-        }
-      } catch (err) {
-        console.error(err);
-      } finally {
-        if (!cancelled) {
-          setRoomsLoaded(true);
-        }
-      }
-    })();
-
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
-  const occupiedRoomsCount = rooms.filter((r) => r.status === RoomStatus.OCCUPIED).length;
+  const renderStatCards = (cards: StatCard[]) => (
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 gap-4">
+      {cards.map((card) => (
+        <div
+          key={card.key}
+          className={`p-6 rounded-3xl border shadow-luxury space-y-2 ${card.className}`}
+        >
+          <div className={`flex items-center justify-between ${card.iconClassName}`}>
+            <span className="text-xs font-semibold">{t(card.labelKey)}</span>
+            {card.icon}
+          </div>
+          <div className="text-3xl font-bold text-[#111111]">
+            {loading ? '...' : stats?.[card.key] ?? 0}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
 
   return (
     <div className="space-y-8 animate-fadeIn">
@@ -117,76 +201,49 @@ export default function AdminDashboardPage() {
         </Link>
       </div>
 
-      {/* Stats Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-        {/* Total */}
-        <div className="p-6 rounded-3xl bg-white border border-[#EAEAEA] shadow-luxury space-y-2">
-          <div className="flex items-center justify-between text-slate-500">
-            <span className="text-xs font-semibold">{t('admin.stats.total')}</span>
-            <Layers className="w-5 h-5 text-[#B99246]" />
-          </div>
-          <div className="text-3xl font-bold text-[#111111]">
-            {loading ? '...' : stats?.total || 0}
+      {/* Room Status (ST-001 §K) */}
+      {renderStatCards(ROOM_STAT_CARDS)}
+
+      {/* Reservation Flow (ST-001 §K) */}
+      {renderStatCards(RESERVATION_STAT_CARDS)}
+
+      {/* Current Guests (ST-001 §K) */}
+      <div className="bg-white rounded-3xl border border-[#EAEAEA] shadow-luxury p-6 sm:p-8 space-y-6">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Users className="w-5 h-5 text-[#B99246]" />
+            <h2 className="text-lg font-bold text-[#111111]">
+              {t('admin.stats.currentGuests')}
+            </h2>
           </div>
         </div>
 
-        {/* New */}
-        <div className="p-6 rounded-3xl bg-blue-50/50 border border-blue-100 shadow-luxury space-y-2">
-          <div className="flex items-center justify-between text-blue-600">
-            <span className="text-xs font-semibold">{t('admin.stats.new')}</span>
-            <Sparkles className="w-5 h-5" />
+        {!loading && stats && stats.currentGuests.length === 0 ? (
+          <p className="text-xs text-[#333333]/50">{t('admin.currentGuestsEmpty')}</p>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full text-xs text-right">
+              <thead>
+                <tr className="border-b border-[#EAEAEA] text-[#333333]/60">
+                  <th className="pb-3 px-3 font-semibold">{t('admin.table.guest')}</th>
+                  <th className="pb-3 px-3 font-semibold">{t('admin.table.roomNumber')}</th>
+                  <th className="pb-3 px-3 font-semibold">{t('admin.table.roomType')}</th>
+                  <th className="pb-3 px-3 font-semibold">{t('admin.table.departure')}</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-[#EAEAEA]">
+                {stats?.currentGuests.map((guest) => (
+                  <tr key={guest.reservationId} className="hover:bg-[#FAF9F7]/80 transition-colors">
+                    <td className="py-3.5 px-3 font-semibold">{guest.guestName}</td>
+                    <td className="py-3.5 px-3 font-mono font-bold">{guest.roomNumber}</td>
+                    <td className="py-3.5 px-3 text-[#333333]/80">{roomTypeTitle(guest.roomType)}</td>
+                    <td className="py-3.5 px-3 text-[#333333]/80">{guest.departureDate}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
-          <div className="text-3xl font-bold text-blue-700">
-            {loading ? '...' : stats?.newCount || 0}
-          </div>
-        </div>
-
-        {/* Pending */}
-        <div className="p-6 rounded-3xl bg-amber-50/50 border border-amber-100 shadow-luxury space-y-2">
-          <div className="flex items-center justify-between text-amber-600">
-            <span className="text-xs font-semibold">{t('admin.stats.pending')}</span>
-            <Clock className="w-5 h-5" />
-          </div>
-          <div className="text-3xl font-bold text-amber-700">
-            {loading ? '...' : stats?.pendingCount || 0}
-          </div>
-        </div>
-
-        {/* Confirmed */}
-        <div className="p-6 rounded-3xl bg-emerald-50/50 border border-emerald-100 shadow-luxury space-y-2">
-          <div className="flex items-center justify-between text-emerald-600">
-            <span className="text-xs font-semibold">{t('admin.stats.confirmed')}</span>
-            <CheckCircle2 className="w-5 h-5" />
-          </div>
-          <div className="text-3xl font-bold text-emerald-700">
-            {loading ? '...' : stats?.confirmedCount || 0}
-          </div>
-        </div>
-
-        {/* Cancelled */}
-        <div className="p-6 rounded-3xl bg-rose-50/50 border border-rose-100 shadow-luxury space-y-2">
-          <div className="flex items-center justify-between text-rose-600">
-            <span className="text-xs font-semibold">{t('admin.stats.cancelled')}</span>
-            <XCircle className="w-5 h-5" />
-          </div>
-          <div className="text-3xl font-bold text-rose-700">
-            {loading ? '...' : stats?.cancelledCount || 0}
-          </div>
-        </div>
-      </div>
-
-      {/* Room Occupancy Summary */}
-      <div className="p-6 rounded-3xl bg-white border border-[#EAEAEA] shadow-luxury space-y-2">
-        <div className="flex items-center justify-between text-slate-500">
-          <span className="text-xs font-semibold">{t('admin.occupancy')}</span>
-          <BedDouble className="w-5 h-5 text-[#B99246]" />
-        </div>
-        <div className="text-3xl font-bold text-[#111111]">
-          {roomsLoaded ? `${occupiedRoomsCount} / ${rooms.length}` : '...'}
-        </div>
-        <p className="text-[11px] text-[#333333]/60">
-          {t('admin.occupancySubtitle')}
-        </p>
+        )}
       </div>
 
       {/* Recent Reservations Table Preview */}
@@ -209,7 +266,7 @@ export default function AdminDashboardPage() {
               <tr className="border-b border-[#EAEAEA] text-[#333333]/60">
                 <th className="pb-3 px-3 font-semibold">{t('admin.table.id')}</th>
                 <th className="pb-3 px-3 font-semibold">{t('admin.table.customer')}</th>
-                <th className="pb-3 px-3 font-semibold">{t('admin.table.phone')}</th>
+                <th className="pb-3 px-3 font-semibold">{t('admin.table.roomNumber')}</th>
                 <th className="pb-3 px-3 font-semibold">{t('admin.table.roomType')}</th>
                 <th className="pb-3 px-3 font-semibold">{t('admin.table.status')}</th>
                 <th className="pb-3 px-3 font-semibold">{t('admin.table.actions')}</th>
@@ -222,12 +279,11 @@ export default function AdminDashboardPage() {
                     {res.reservationId}
                   </td>
                   <td className="py-3.5 px-3 font-semibold">{res.customerName}</td>
-                  <td className="py-3.5 px-3 text-start"><span dir="ltr">{res.phone}</span></td>
+                  <td className="py-3.5 px-3 font-mono text-[#333333]/80">
+                    {res.roomNumber ?? '—'}
+                  </td>
                   <td className="py-3.5 px-3 text-[#333333]/80">
-                    {(() => {
-                      const room = ROOM_TYPES_LIST.find((r) => r.id === res.roomType);
-                      return room ? t(`rooms.${room.key}.title`) : res.roomType;
-                    })()}
+                    {roomTypeTitle(String(res.roomType))}
                   </td>
                   <td className="py-3.5 px-3">
                     <StatusBadge status={res.status} />

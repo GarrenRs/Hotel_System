@@ -1,3 +1,5 @@
+> **Type:** Implementation Phase | **ID:** Phase 5 | **Status:** CLOSED | **Based On:** Phase 1 (Room model) | **Superseded By:** —
+
 # Phase 5 — Room Management UI
 
 ## What changed

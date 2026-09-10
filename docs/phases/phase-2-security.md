@@ -1,3 +1,5 @@
+> **Type:** Implementation Phase | **ID:** Phase 2 | **Status:** CLOSED | **Based On:** Phase 1 | **Superseded By:** —
+
 # Phase 2 — Security Hardening (env validation, no silent secret fallbacks)
 
 ## What changed
@@ -6,7 +8,7 @@
 - `app/api/admin/login/route.ts` — removed the three hardcoded fallback literals the old code fell back to (a default `admin` username, and the placeholder password / JWT secret that used to ship in `.env.example`); reads `ADMIN_USERNAME`, `ADMIN_PASSWORD`, and `JWT_SECRET` from the validated `env` instead of inline `process.env` fallbacks.
 - `app/admin/(auth)/login/page.tsx` — removed the `useForm` `defaultValues` that pre-filled the login form with hardcoded `admin` credentials; the form now starts blank.
 - `.env.example` — unchanged. It remains the single allowed location for the placeholder literals (per the Phase 2 grep criterion: zero references outside `.env.example`).
-- `docs/notes.md` — updated the stale "Phase 2 removes them" bullet about `.env.example` and logged new out-of-scope observations (see Rollback / notes).
+- `docs/archive/notes-journal.md` — updated the stale "Phase 2 removes them" bullet about `.env.example` and logged new out-of-scope observations (see Rollback / notes).
 
 ## Why
 
@@ -24,7 +26,7 @@ Global Rule 4 ("no silent defaults for secrets"): a system that ships the real a
 3. Grep for old literals (done):
    - `rg -n --no-ignore --glob '!node_modules/**' '<old-placeholder-password>|<old-placeholder-jwt-secret>' .` (substituting the two placeholder values formerly shipped in `.env.example`) → zero matches. The literals now exist only in `.env.example`. No other hardcoded secrets (`secret`, `api[_-]?key`, etc.) remain in app/lib/services/domain/repositories/prisma, and no other fallback pattern (`|| '<value>'`) remains in source files.
 4. Type/lint (done):
-   - `npx tsc --noEmit` and `npm run lint` were executed. No new errors from this phase's changes (all errors/warnings reported are outside the changed lines — pre-existing, see `docs/notes.md`).
+   - `npx tsc --noEmit` and `npm run lint` were executed. No new errors from this phase's changes (all errors/warnings reported are outside the changed lines — pre-existing, see `docs/archive/notes-journal.md`).
 
 ## Environment variables added/changed
 
@@ -35,5 +37,5 @@ Global Rule 4 ("no silent defaults for secrets"): a system that ships the real a
 - Revert `app/api/admin/login/route.ts` to the inline fallback reads, re-adding the fallback literal for each of `ADMIN_USERNAME`, `ADMIN_PASSWORD`, and `JWT_SECRET` (values as documented in `.env.example`).
 - Restore the `defaultValues` block in `app/admin/(auth)/login/page.tsx` (or revert the whole file).
 - Delete `lib/env.ts`.
-- Restore the `docs/notes.md` bullets touched by this phase.
-- Delete `docs/phase-2-security.md` and revert the Phase tracker in `docs/PROJECT_STATE.md`.
+- Restore the `docs/archive/notes-journal.md` bullets touched by this phase.
+- Delete `docs/phases/phase-2-security.md` and revert the Phase tracker in `docs/PROJECT_STATE.md`.

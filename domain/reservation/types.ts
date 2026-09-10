@@ -30,10 +30,29 @@ export interface ApiResponse<T> {
   errors?: string[];
 }
 
-export interface ReservationStats {
+export interface CurrentGuestInfo {
+  reservationId: string;
+  guestName: string;
+  roomNumber: string;
+  roomType: RoomType | string;
+  arrivalDate: string;
+  departureDate: string;
+}
+
+export interface AdminStats {
+  totalRooms: number;
+  availableRooms: number;
+  occupiedRooms: number;
+  cleaningRooms: number;
+  maintenanceRooms: number;
+  reservedUpcoming: number;
+  todayArrivals: number;
+  todayDepartures: number;
   total: number;
   newCount: number;
-  pendingCount: number;
   confirmedCount: number;
+  checkedInCount: number;
+  checkedOutCount: number;
   cancelledCount: number;
+  currentGuests: CurrentGuestInfo[];
 }

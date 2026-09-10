@@ -12,5 +12,16 @@
   "messageLabel": "Votre Message / Demande",
   "sendButton": "Envoyer le Message",
   "successMessage": "Votre message a été envoyé avec succès. Notre équipe vous recontactera très rapidement.",
-  "bookingConfirmedMessage": "Votre demande de réservation a bien été reçue. Notre équipe de réception vous contactera pour confirmer les détails."
+  "bookingConfirmedMessage": "Votre demande de réservation a bien été reçue. Notre équipe de réception vous contactera pour confirmer les détails.",
+  "arrivalLabel": "Date d'arrivée",
+  "departureLabel": "Date de départ",
+  "guestsLabel": "Nombre de personnes",
+  "roomTypeLabel": "Type de chambre / suite",
+  "capacityLabel": "Capacité",
+  "selectRoomLabel": "Choisir la chambre disponible",
+  "selectDatesHint": "Choisissez d'abord vos dates d'arrivée et de départ pour voir les chambres disponibles.",
+  "noAvailableRooms": "Aucune chambre disponible pour ces dates et ce type. Essayez d'autres dates.",
+  "bookAnotherRoom": "Réserver une autre chambre",
+  "keepReservationId": "Conservez ce numéro de réservation — notre équipe vous contactera pour confirmer les détails.",
+  "roomNumberLabel": "N° de chambre"
 }

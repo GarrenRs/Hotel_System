@@ -1,3 +1,5 @@
+> **Type:** Implementation Phase | **ID:** Phase 8 | **Status:** CLOSED | **Based On:** Phase 7 (continuation) | **Supersedes:** Phase 3, 4, 4b, 4c, 6 (demo layer)
+
 # Phase 8 — Strip Demo Layer, Finalize Production Template
 
 ## What changed
@@ -36,7 +38,7 @@ The codebase is permanently converted from a self-resetting, per-visitor **demo*
 
 - **`config/hotel.ts`** — comment block at the top lists every value that must be replaced with the real client's data before deployment (name, address, phones, email, check-in/out, socials, map embed) plus the `public/images/*` photography.
 - **`.env.example`** — `CRON_SECRET` removed; remaining four variables (`DATABASE_URL`, `ADMIN_USERNAME`, `ADMIN_PASSWORD`, `JWT_SECRET`) documented with instructions and placeholder values (no committed secrets).
-- **`docs/DEPLOYMENT.md`** (new) — ordered checklist: env vars, new Supabase `DATABASE_URL` per client, `npx prisma db push` + optional one-time `npx prisma db seed`, replace `config/hotel.ts` + `public/images/*`, pre-launch grep for demo/session residue, post-launch notes.
+- **`docs/reference/deployment.md`** (new) — ordered checklist: env vars, new Supabase `DATABASE_URL` per client, `npx prisma db push` + optional one-time `npx prisma db seed`, replace `config/hotel.ts` + `public/images/*`, pre-launch grep for demo/session residue, post-launch notes.
 
 ### Task 5 — Repo-wide sweep
 
@@ -44,7 +46,7 @@ The codebase is permanently converted from a self-resetting, per-visitor **demo*
 
 ## Why
 
-All demo scaffolding existed to make a throwaway, self-resetting multi-visitor showcase. This working copy is now the permanent production template: one hotel, one desk, one dataset, real persistence. Sessions, per-visitor seeding, the demo badge, on-screen credentials, and the cron cleanup all answered a demo need that no longer exists — they actively fought the "real system" pretense (a guest could observe another visitor's temporary world and a reset 24h later). Removing them makes the template deployable as-is per client (see `docs/DEPLOYMENT.md`).
+All demo scaffolding existed to make a throwaway, self-resetting multi-visitor showcase. This working copy is now the permanent production template: one hotel, one desk, one dataset, real persistence. Sessions, per-visitor seeding, the demo badge, on-screen credentials, and the cron cleanup all answered a demo need that no longer exists — they actively fought the "real system" pretense (a guest could observe another visitor's temporary world and a reset 24h later). Removing them makes the template deployable as-is per client (see `docs/reference/deployment.md`).
 
 ## How to verify
 
@@ -66,4 +68,4 @@ All demo scaffolding existed to make a throwaway, self-resetting multi-visitor s
 
 - The owner's pre-Phase-8 snapshot preserves the public-demo behavior; restoring it reinstates sessions/seeding/badge/credentials display. In-tree, there is intentionally **no** flag to "turn the demo back on": the code is the production template now.
 - For a partial in-tree revert: re-add `sessionId` to the Prisma schema (`db push --force-reset` again), restore `getDemoSessionId`/`lib/session.ts`, session-scoped repository/service signatures and the three session 401s, recreate `/api/demo/init` + `cleanup`, reinstate `middleware.ts` session wiring, restore `seedDemoData(sessionId)`, restore `DemoBadge`/`demo-access`/the login card credential box, and re-add the removed translation keys. Also restore the `hotel_demo_admin_token` cookie name if the browser tokens matter.
-- Delete `docs/phase-8-production-template.md` and revert the `DEPLOYMENT.md`/`PROJECT_STATE.md` additions if the phase is rolled back.
+- Delete `docs/phases/phase-8-production-template.md` and revert the `docs/reference/deployment.md`/`docs/PROJECT_STATE.md` additions if the phase is rolled back.

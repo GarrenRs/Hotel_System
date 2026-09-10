@@ -1,3 +1,5 @@
+> **Type:** Implementation Phase | **ID:** Phase 0 | **Status:** CLOSED | **Based On:** — | **Superseded By:** —
+
 # Phase 0 — Hotfix (tsconfig `@/*` alias + .env.example tracked)
 
 ## What changed
@@ -7,7 +9,7 @@
 
 ## Why
 
-Without the alias every `@/...` import in the app was untyped, failing `tsc --noEmit` and `next build` on every file (pre-existing blockade, logged in `docs/notes.md`). And `.env*` silently excluded `.env.example` from version control, so the file relied on "intentional ambiguity" in `docs/notes.md` to exist. This hotfix unblocks Phase 2 type-checking and makes env-file tracking explicit.
+Without the alias every `@/...` import in the app was untyped, failing `tsc --noEmit` and `next build` on every file (pre-existing blockade, logged in `docs/archive/notes-journal.md`). And `.env*` silently excluded `.env.example` from version control, so the file relied on "intentional ambiguity" in `docs/archive/notes-journal.md` to exist. This hotfix unblocks Phase 2 type-checking and makes env-file tracking explicit.
 
 ## How to verify
 
@@ -28,4 +30,4 @@ Without the alias every `@/...` import in the app was untyped, failing `tsc --no
 
 - Remove `baseUrl`/`paths` from `tsconfig.json` (reverts the alias resolution).
 - Restore the `.gitignore` block to `# env files (can opt-in for committing if needed)\n.env*`.
-- Delete `docs/phase-0-hotfix.md`.
+- Delete `docs/phases/phase-0-hotfix.md`.

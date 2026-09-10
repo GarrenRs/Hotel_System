@@ -7,6 +7,7 @@ import { Hero } from '@/components/hotel/Hero';
 import { BookingForm } from '@/components/reservation/BookingForm';
 import { RoomCard } from '@/components/hotel/RoomCard';
 import { GalleryGrid } from '@/components/hotel/GalleryGrid';
+import { StatsBand } from '@/components/hotel/StatsBand';
 import { useLanguage } from '@/components/providers/LanguageContext';
 import { ROOM_TYPES_LIST } from '@/lib/constants';
 import { HOTEL } from '@/config/hotel';
@@ -178,22 +179,7 @@ export default function HomePage() {
       {/* Statistics Section */}
       <section className="bg-[#111111] text-white py-16 border-y border-[#B99246]/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
-          <div className="space-y-2">
-            <div className="text-4xl sm:text-5xl font-bold text-[#B99246]">45+</div>
-            <div className="text-xs text-white/70 uppercase tracking-wider">{t('home.stats.rooms')}</div>
-          </div>
-          <div className="space-y-2">
-            <div className="text-4xl sm:text-5xl font-bold text-[#B99246]">12,000+</div>
-            <div className="text-xs text-white/70 uppercase tracking-wider">{t('home.stats.guests')}</div>
-          </div>
-          <div className="space-y-2">
-            <div className="text-4xl sm:text-5xl font-bold text-[#B99246]">99%</div>
-            <div className="text-xs text-white/70 uppercase tracking-wider">{t('home.stats.satisfaction')}</div>
-          </div>
-          <div className="space-y-2">
-            <div className="text-4xl sm:text-5xl font-bold text-[#B99246]">10+</div>
-            <div className="text-xs text-white/70 uppercase tracking-wider">{t('home.stats.experience')}</div>
-          </div>
+          <StatsBand />
         </div>
       </section>
 

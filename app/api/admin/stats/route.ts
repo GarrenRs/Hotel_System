@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { reservationService } from '@/services/reservation/reservation.service';
-import { ApiResponse, ReservationStats } from '@/domain/reservation/types';
+import { adminService } from '@/services/admin/admin.service';
+import { ApiResponse, AdminStats } from '@/domain/reservation/types';
 import { requireAdminAuth } from '@/lib/admin-auth';
+import { toErrorResponse } from '@/lib/api-errors';
 import { logger } from '@/lib/logger';
 
 export async function GET(request: NextRequest) {
@@ -11,21 +12,15 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const stats = await reservationService.getReservationStats();
-    const response: ApiResponse<ReservationStats> = {
+    const stats = await adminService.getDashboardStats();
+    const response: ApiResponse<AdminStats> = {
       success: true,
       message: 'Stats retrieved successfully.',
       data: stats,
     };
     return NextResponse.json(response);
   } catch (error: unknown) {
-    logger.error('Error fetching admin reservation stats', error);
-    const response: ApiResponse<null> = {
-      success: false,
-      message: 'Failed to fetch reservation stats.',
-      data: null,
-      errors: [(error instanceof Error ? error.message : 'Unknown error')],
-    };
-    return NextResponse.json(response, { status: 500 });
+    logger.error('Error fetching admin dashboard stats', error);
+    return toErrorResponse(error, 'admin');
   }
 }

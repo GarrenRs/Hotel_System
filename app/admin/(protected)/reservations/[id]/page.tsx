@@ -7,8 +7,9 @@ import { useLanguage } from '@/components/providers/LanguageContext';
 import { ReservationEntity } from '@/domain/reservation/entities';
 import { ReservationStatus } from '@/domain/reservation/enums';
 import { StatusBadge } from '@/components/admin/StatusBadge';
+import { RESERVATION_TRANSITIONS, transitionLabelKey } from '@/lib/status';
 import { ROOM_TYPES_LIST } from '@/lib/constants';
-import { ArrowLeft, User, Phone, Mail, Calendar, BedDouble, FileText, Trash2, AlertCircle } from 'lucide-react';
+import { ArrowLeft, User, Phone, Mail, Calendar, BedDouble, DoorOpen, Users, FileText, Trash2, AlertCircle } from 'lucide-react';
 
 export default function ReservationDetailPage() {
   const { t } = useLanguage();
@@ -38,7 +39,7 @@ export default function ReservationDetailPage() {
     if (id) fetchDetail();
   }, [id]);
 
-  const handleStatusChange = async (newStatus: string) => {
+  const handleTransition = async (newStatus: string) => {
     if (!reservation) return;
     setUpdating(true);
     setStatusError(null);
@@ -52,11 +53,8 @@ export default function ReservationDetailPage() {
       if (result.success) {
         setReservation(result.data);
       } else {
-        setStatusError(
-          result.message === 'Room is not available for the selected dates.'
-            ? t('admin.errors.confirmConflict')
-            : t('admin.errors.updateFailed')
-        );
+        const key = result.errors?.[0] || 'admin.errors.updateFailed';
+        setStatusError(t(key));
       }
     } catch (err) {
       console.error(err);
@@ -103,6 +101,9 @@ export default function ReservationDetailPage() {
       </div>
     );
   }
+
+  const currentStatus = reservation.status as ReservationStatus;
+  const allowedTransitions = RESERVATION_TRANSITIONS[currentStatus] ?? [];
 
   return (
     <div className="max-w-4xl mx-auto space-y-8 animate-fadeIn text-start">
@@ -167,7 +168,7 @@ export default function ReservationDetailPage() {
               <Phone className="w-3.5 h-3.5 text-[#B99246]" />
               <span>{t('admin.table.phone')}</span>
             </div>
-            <div className="text-sm font-bold text-[#111111] text-start"><span dir="ltr">{reservation.phone}</span></div>
+            <div className="text-sm font-bold text-[#111111]"><span dir="ltr">{reservation.phone}</span></div>
           </div>
 
           {/* Email */}
@@ -177,6 +178,17 @@ export default function ReservationDetailPage() {
               <span>{t('admin.table.email')}</span>
             </div>
             <div className="text-sm font-bold text-[#111111]">{reservation.email}</div>
+          </div>
+
+          {/* Room Number */}
+          <div className="p-4 rounded-2xl bg-[#FAF9F7] border border-[#EAEAEA] space-y-1">
+            <div className="text-[#333333]/60 flex items-center gap-1.5 font-semibold">
+              <DoorOpen className="w-3.5 h-3.5 text-[#B99246]" />
+              <span>{t('admin.table.roomNumber')}</span>
+            </div>
+            <div className="text-sm font-bold text-[#111111] font-mono">
+              {reservation.roomNumber ?? '—'}
+            </div>
           </div>
 
           {/* Room Type */}
@@ -210,6 +222,15 @@ export default function ReservationDetailPage() {
             </div>
             <div className="text-sm font-bold text-[#111111]">{reservation.departureDate}</div>
           </div>
+
+          {/* Guests */}
+          <div className="p-4 rounded-2xl bg-[#FAF9F7] border border-[#EAEAEA] space-y-1">
+            <div className="text-[#333333]/60 flex items-center gap-1.5 font-semibold">
+              <Users className="w-3.5 h-3.5 text-[#B99246]" />
+              <span>{t('admin.table.guests')}</span>
+            </div>
+            <div className="text-sm font-bold text-[#111111]">{reservation.guests}</div>
+          </div>
         </div>
 
         {/* Notes */}
@@ -225,27 +246,29 @@ export default function ReservationDetailPage() {
           </div>
         )}
 
-        {/* Change Status Controls */}
+        {/* Contextual Status Actions (single transition per state) */}
         <div className="pt-6 border-t border-[#EAEAEA] space-y-4">
           <h3 className="text-xs font-bold text-[#111111] uppercase tracking-wider">
             {t('admin.details.changeStatus')}
           </h3>
-          <div className="flex flex-wrap gap-3">
-            {Object.values(ReservationStatus).map((st) => (
-              <button
-                key={st}
-                onClick={() => handleStatusChange(st)}
-                disabled={updating || reservation.status === st}
-                className={`px-5 py-2.5 rounded-full text-xs font-bold transition-all cursor-pointer disabled:opacity-50 ${
-                  reservation.status === st
-                    ? 'bg-[#111111] text-[#B99246] ring-2 ring-[#B99246]'
-                    : 'bg-[#FAF9F7] border border-[#EAEAEA] text-[#333333] hover:border-[#B99246]'
-                }`}
-              >
-                {t(`common.status.${st.toLowerCase()}`)}
-              </button>
-            ))}
-          </div>
+          {allowedTransitions.length === 0 ? (
+            <p className="text-xs text-[#333333]/60">
+              {t('admin.details.noTransitions')}
+            </p>
+          ) : (
+            <div className="flex flex-wrap gap-3">
+              {allowedTransitions.map((target) => (
+                <button
+                  key={target}
+                  onClick={() => handleTransition(target)}
+                  disabled={updating}
+                  className="px-5 py-2.5 rounded-full bg-[#111111] text-[#B99246] text-xs font-bold hover:bg-[#B99246] hover:text-[#111111] transition-all cursor-pointer disabled:opacity-50"
+                >
+                  {t(transitionLabelKey(currentStatus, target))}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>

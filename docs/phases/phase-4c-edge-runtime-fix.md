@@ -1,3 +1,5 @@
+> **Type:** Implementation Phase | **ID:** Phase 4c | **Status:** CLOSED | **Based On:** Phase 4b observations | **Superseded By:** Phase 8
+
 # Phase 4c — Edge Runtime Background Seeding Fix
 
 Bugfix phase (between Phase 4b and Phase 5). Resolves the last open observation from Phase 4b — that `middleware.ts`'s fire-and-forget seeding is not guaranteed to complete on a serverless **Edge** deployment. No new features; the Phase 4b client-side bounded retries are kept unchanged as a safety net.
@@ -40,4 +42,4 @@ Bugfix phase (between Phase 4b and Phase 5). Resolves the last open observation 
 ## Rollback
 
 1. Revert `middleware.ts` to the Phase 4b form: signature `middleware(request: NextRequest)` and `void fetch(...).catch(...)` for the init self-fetch.
-2. Delete `docs/phase-4c-edge-runtime-fix.md` and revert the Phase Tracker/changelog in `docs/PROJECT_STATE.md` and the resolved entry in `docs/notes.md`.
+2. Delete `docs/phases/phase-4c-edge-runtime-fix.md` and revert the Phase Tracker/changelog in `docs/PROJECT_STATE.md` and the resolved entry in `docs/archive/notes-journal.md`.

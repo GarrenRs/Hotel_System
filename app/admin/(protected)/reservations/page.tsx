@@ -7,7 +7,7 @@ import { ReservationEntity } from '@/domain/reservation/entities';
 import { ReservationStatus } from '@/domain/reservation/enums';
 import { StatusBadge } from '@/components/admin/StatusBadge';
 import { ROOM_TYPES_LIST } from '@/lib/constants';
-import { Search, Trash2, Eye, RefreshCw, AlertCircle } from 'lucide-react';
+import { Search, Eye, RefreshCw } from 'lucide-react';
 
 const BOOT_RETRY_ATTEMPTS = 4;
 const BOOT_RETRY_DELAY_MS = 1200;
@@ -19,8 +19,6 @@ export default function AdminReservationsPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<string>('ALL');
   const [selectedRoomType, setSelectedRoomType] = useState<string>('ALL');
-  const [deletingId, setDeletingId] = useState<string | null>(null);
-  const [statusError, setStatusError] = useState<string | null>(null);
   const didBootstrap = useRef(false);
 
   const fetchReservations = async () => {
@@ -54,7 +52,6 @@ export default function AdminReservationsPage() {
   useEffect(() => {
     let cancelled = false;
 
-    // Keep the loading state visible and retry briefly instead of flashing empty.
     async function bootstrap(attempt: number): Promise<void> {
       try {
         const res = await fetch('/api/reservations');
@@ -98,51 +95,6 @@ export default function AdminReservationsPage() {
     setTimeout(() => fetchReservations(), 0);
   };
 
-  const handleStatusUpdate = async (id: string, newStatus: string) => {
-    setStatusError(null);
-    try {
-      const res = await fetch(`/api/reservations/${id}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status: newStatus }),
-      });
-      const result = await res.json();
-      if (result.success) {
-        setReservations((prev) =>
-          prev.map((r) => (r.id === id ? { ...r, status: newStatus } : r))
-        );
-      } else {
-        setStatusError(
-          result.message === 'Room is not available for the selected dates.'
-            ? t('admin.errors.confirmConflict')
-            : t('admin.errors.updateFailed')
-        );
-      }
-    } catch (err) {
-      console.error(err);
-      setStatusError(t('admin.errors.updateFailed'));
-    }
-  };
-
-  const handleDelete = async (id: string) => {
-    if (!confirm(t('admin.details.deleteConfirm'))) return;
-
-    setDeletingId(id);
-    try {
-      const res = await fetch(`/api/reservations/${id}`, {
-        method: 'DELETE',
-      });
-      const result = await res.json();
-      if (result.success) {
-        setReservations((prev) => prev.filter((r) => r.id !== id));
-      }
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setDeletingId(null);
-    }
-  };
-
   return (
     <div className="space-y-6 animate-fadeIn text-start">
       {/* Page Header */}
@@ -152,7 +104,7 @@ export default function AdminReservationsPage() {
             {t('admin.reservations')}
           </h1>
           <p className="text-xs text-[#333333]/70">
-            {t('admin.loginSubtitle')}
+            {t('admin.reservationsSubtitle')}
           </p>
         </div>
         <button
@@ -160,7 +112,7 @@ export default function AdminReservationsPage() {
           className="flex items-center gap-2 px-4 py-2 rounded-full border border-[#B99246]/40 text-[#B99246] text-xs font-semibold hover:bg-[#B99246]/10 transition-all cursor-pointer"
         >
           <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
-          <span>{t('admin.actions.save')}</span>
+          <span>{t('admin.actions.refresh')}</span>
         </button>
       </div>
 
@@ -213,13 +165,6 @@ export default function AdminReservationsPage() {
         </form>
       </div>
 
-      {statusError && (
-        <div className="flex items-center gap-3 bg-rose-50 border border-rose-200 text-rose-700 p-4 rounded-2xl text-xs">
-          <AlertCircle className="w-5 h-5 shrink-0 text-rose-600" />
-          <span>{statusError}</span>
-        </div>
-      )}
-
       {/* Table */}
       <div className="bg-white rounded-3xl border border-[#EAEAEA] shadow-luxury overflow-hidden">
         <div className="overflow-x-auto">
@@ -229,9 +174,9 @@ export default function AdminReservationsPage() {
                 <th className="py-4 px-4 font-semibold text-start">{t('admin.table.id')}</th>
                 <th className="py-4 px-4 font-semibold text-start">{t('admin.table.customer')}</th>
                 <th className="py-4 px-4 font-semibold text-start">{t('admin.table.phone')}</th>
+                <th className="py-4 px-4 font-semibold text-start">{t('admin.table.roomNumber')}</th>
                 <th className="py-4 px-4 font-semibold text-start">{t('admin.table.arrival')}</th>
                 <th className="py-4 px-4 font-semibold text-start">{t('admin.table.departure')}</th>
-                <th className="py-4 px-4 font-semibold text-start">{t('admin.table.roomType')}</th>
                 <th className="py-4 px-4 font-semibold text-start">{t('admin.table.status')}</th>
                 <th className="py-4 px-4 font-semibold text-center">{t('admin.table.actions')}</th>
               </tr>
@@ -259,27 +204,14 @@ export default function AdminReservationsPage() {
                       <div>{res.customerName}</div>
                       <div className="text-[11px] text-[#333333]/60">{res.email}</div>
                     </td>
-                    <td className="py-4 px-4 text-start font-medium"><span dir="ltr">{res.phone}</span></td>
+                    <td className="py-4 px-4 font-medium"><span dir="ltr">{res.phone}</span></td>
+                    <td className="py-4 px-4 font-mono text-[#333333]/80">
+                      {res.roomNumber ?? '—'}
+                    </td>
                     <td className="py-4 px-4 text-[#333333]/80">{res.arrivalDate}</td>
                     <td className="py-4 px-4 text-[#333333]/80">{res.departureDate}</td>
-                    <td className="py-4 px-4 text-[#333333]/80">
-                      {(() => {
-                        const room = ROOM_TYPES_LIST.find((r) => r.id === res.roomType);
-                        return room ? t(`rooms.${room.key}.title`) : res.roomType;
-                      })()}
-                    </td>
                     <td className="py-4 px-4">
-                      <select
-                        value={res.status}
-                        onChange={(e) => handleStatusUpdate(res.id, e.target.value)}
-                        className="px-3 py-1 rounded-full border border-gray-200 text-[11px] font-bold focus:outline-none cursor-pointer bg-white"
-                      >
-                        {Object.values(ReservationStatus).map((st) => (
-                          <option key={st} value={st}>
-                            {t(`common.status.${st.toLowerCase()}`)}
-                          </option>
-                        ))}
-                      </select>
+                      <StatusBadge status={res.status} />
                     </td>
                     <td className="py-4 px-4">
                       <div className="flex items-center justify-center gap-2">
@@ -290,14 +222,6 @@ export default function AdminReservationsPage() {
                         >
                           <Eye className="w-4 h-4" />
                         </Link>
-                        <button
-                          onClick={() => handleDelete(res.id)}
-                          disabled={deletingId === res.id}
-                          className="p-2 rounded-full bg-rose-50 text-rose-600 hover:bg-rose-600 hover:text-white transition-all cursor-pointer disabled:opacity-50"
-                          title={t('admin.actions.delete')}
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </button>
                       </div>
                     </td>
                   </tr>

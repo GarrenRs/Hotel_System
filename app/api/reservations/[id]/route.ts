@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { reservationService, ReservationConflictError } from '@/services/reservation/reservation.service';
+import { reservationService } from '@/services/reservation/reservation.service';
 import { ApiResponse } from '@/domain/reservation/types';
 import { requireAdminAuth } from '@/lib/admin-auth';
+import { toErrorResponse } from '@/lib/api-errors';
 import { logger } from '@/lib/logger';
 
 export async function GET(
@@ -20,8 +21,9 @@ export async function GET(
     if (!reservation) {
       const response: ApiResponse<null> = {
         success: false,
-        message: 'Reservation not found.',
+        message: 'admin.errors.reservationNotFound',
         data: null,
+        errors: ['admin.errors.reservationNotFound'],
       };
       return NextResponse.json(response, { status: 404 });
     }
@@ -35,13 +37,7 @@ export async function GET(
     return NextResponse.json(response);
   } catch (error: unknown) {
     logger.error('Error fetching reservation details', error);
-    const response: ApiResponse<null> = {
-      success: false,
-      message: 'Failed to fetch reservation.',
-      data: null,
-      errors: [(error instanceof Error ? error.message : 'Unknown error')],
-    };
-    return NextResponse.json(response, { status: 500 });
+    return toErrorResponse(error, 'admin');
   }
 }
 
@@ -68,7 +64,7 @@ export async function PATCH(
       return NextResponse.json(response, { status: 400 });
     }
 
-    const updated = await reservationService.updateReservationStatus(id, status);
+    const updated = await reservationService.transitionReservation(id, status);
     logger.info('Updated reservation status', { id, status });
 
     const response: ApiResponse<typeof updated> = {
@@ -79,24 +75,8 @@ export async function PATCH(
 
     return NextResponse.json(response);
   } catch (error: unknown) {
-    if (error instanceof ReservationConflictError) {
-      const response: ApiResponse<null> = {
-        success: false,
-        message: 'Room is not available for the selected dates.',
-        data: null,
-        errors: [error.message],
-      };
-      return NextResponse.json(response, { status: 400 });
-    }
-
     logger.error('Error updating reservation status', error);
-    const response: ApiResponse<null> = {
-      success: false,
-      message: 'Failed to update reservation status.',
-      data: null,
-      errors: [(error instanceof Error ? error.message : 'Unknown error')],
-    };
-    return NextResponse.json(response, { status: 500 });
+    return toErrorResponse(error, 'admin');
   }
 }
 
@@ -123,12 +103,6 @@ export async function DELETE(
     return NextResponse.json(response);
   } catch (error: unknown) {
     logger.error('Error deleting reservation', error);
-    const response: ApiResponse<null> = {
-      success: false,
-      message: 'Failed to delete reservation.',
-      data: null,
-      errors: [(error instanceof Error ? error.message : 'Unknown error')],
-    };
-    return NextResponse.json(response, { status: 500 });
+    return toErrorResponse(error, 'admin');
   }
 }

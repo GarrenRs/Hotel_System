@@ -3,5 +3,8 @@
   "reservationNotFound": "La demande de réservation est introuvable",
   "serverError": "Une erreur est survenue lors du traitement, veuillez réessayer",
   "unauthorized": "Accès non autorisé à cette page",
-  "roomsLoadFailed": "Impossible de charger les chambres disponibles pour le moment. Veuillez recharger la page et réessayer."
+  "roomsLoadFailed": "Impossible de charger les chambres disponibles pour le moment. Veuillez recharger la page et réessayer.",
+  "roomNotAvailable": "La chambre n'est pas disponible pour ces dates.",
+  "roomTypeMismatch": "La chambre sélectionnée ne correspond pas au type demandé.",
+  "roomNotFound": "La chambre sélectionnée est introuvable."
 }

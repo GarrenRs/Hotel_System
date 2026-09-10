@@ -11,6 +11,7 @@
   "recentReservationsTitle": "Demandes récentes",
   "viewAll": "Voir tout",
   "reservations": "Gestion des Demandes",
+  "reservationsSubtitle": "Liste des demandes de réservation avec le statut en direct",
   "rooms": "Gestion des Chambres",
   "roomsSubtitle": "Panneau des chambres et suites en direct — l'état réel de chaque chambre",
   "occupancy": "Occupation des Chambres",
@@ -19,18 +20,29 @@
   "stats": {
     "total": "Total des Demandes",
     "new": "Nouvelles Demandes",
-    "pending": "En Attente",
     "confirmed": "Réservations Confirmées",
-    "cancelled": "Réservations Annulées"
+    "cancelled": "Réservations Annulées",
+    "totalRooms": "Total Chambres",
+    "availableRooms": "Chambres Disponibles",
+    "occupiedRooms": "Chambres Occupées",
+    "cleaningRooms": "Chambres en Nettoyage",
+    "maintenanceRooms": "Chambres en Maintenance",
+    "reservedUpcoming": "Réservations à Venir",
+    "todayArrivals": "Arrivées Aujourd'hui",
+    "todayDepartures": "Départs Aujourd'hui",
+    "currentGuests": "Clients en Séjour"
   },
+  "currentGuestsEmpty": "Aucun client présent dans l'hôtel pour le moment",
   "table": {
     "id": "Code Réservation",
     "customer": "Client",
+    "guest": "Client",
     "phone": "Téléphone",
     "email": "E-mail",
     "arrival": "Arrivée",
     "departure": "Départ",
     "guests": "Personnes",
+    "roomNumber": "N° Chambre",
     "roomType": "Type de Chambre",
     "status": "Statut",
     "createdAt": "Date Demande",
@@ -43,15 +55,23 @@
   },
   "details": {
     "title": "Détails de la Demande",
-    "changeStatus": "Modifier le statut",
+    "changeStatus": "Statut et mises à jour",
     "deleteConfirm": "Êtes-vous sûr de vouloir supprimer définitivement cette réservation ?",
-    "notes": "Remarques complémentaires"
+    "notes": "Remarques complémentaires",
+    "noTransitions": "Statut final — aucune transition n'est possible pour cette demande."
   },
   "actions": {
     "view": "Consulter",
     "delete": "Supprimer",
     "save": "Enregistrer",
-    "cancel": "Annuler"
+    "cancel": "Annuler",
+    "refresh": "Actualiser",
+    "confirm": "Confirmer",
+    "checkIn": "Enregistrer l'Arrivée",
+    "checkOut": "Enregistrer le Départ",
+    "markReady": "Prête à Louer",
+    "maintenance": "Mettre en Maintenance",
+    "backToService": "Remettre en Service"
   },
   "roomsSection": {
     "room": "Chambre",
@@ -59,7 +79,10 @@
     "status": "Statut",
     "changeStatus": "Changer le statut",
     "selectRoom": "Choisir la chambre",
-    "noAvailableRooms": "Aucune chambre disponible de ce type pour le moment"
+    "noAvailableRooms": "Aucune chambre disponible de ce type pour le moment",
+    "currentGuest": "Client actuel",
+    "maintenanceWarnings": "Réservations confirmées sur la période de maintenance (non annulées automatiquement) :",
+    "noActions": "Aucune action manuelle possible pour l'état actuel de cette chambre."
   },
   "settingsData": {
     "subtitle": "Paramètres du système et de l'administrateur",
@@ -71,6 +94,14 @@
   },
   "errors": {
     "updateFailed": "Impossible de mettre à jour le statut de la demande. Veuillez réessayer.",
-    "confirmConflict": "Confirmation impossible : la chambre est déjà réservée pour ces dates."
+    "confirmConflict": "Confirmation impossible : la chambre est déjà réservée pour ces dates.",
+    "invalidTransition": "Cette transition n'est pas autorisée pour l'état actuel de la demande.",
+    "checkInBeforeArrival": "Impossible d'enregistrer l'arrivée avant la date d'arrivée prévue.",
+    "checkInRoomNotReady": "Enregistrement impossible : la chambre n'est pas prête pour le moment.",
+    "conflict": "Opération impossible : la chambre est déjà réservée sur cette période.",
+    "invalidRoomStatus": "La valeur du statut est invalide.",
+    "invalidRoomTransition": "Ce changement de statut n'est pas possible depuis l'état actuel de la chambre.",
+    "roomNotFound": "Chambre introuvable.",
+    "reservationNotFound": "Réservation introuvable."
   }
 }

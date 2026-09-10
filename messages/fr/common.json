@@ -31,9 +31,11 @@
   },
   "status": {
     "new": "Nouveau",
-    "pending": "En Attente",
     "confirmed": "Confirmé",
+    "checkedIn": "En séjour",
+    "checkedOut": "Sorti",
     "cancelled": "Annulé",
+    "unknown": "Statut inconnu",
     "available": "Disponible",
     "occupied": "Occupée",
     "cleaning": "Nettoyage",

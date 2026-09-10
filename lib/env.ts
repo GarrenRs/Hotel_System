@@ -21,4 +21,27 @@ function loadEnv(): Record<RequiredEnvVar, string> {
   return env;
 }
 
-export const env = loadEnv();
+let cached: Record<RequiredEnvVar, string> | null = null;
+
+function getEnv(): Record<RequiredEnvVar, string> {
+  if (!cached) {
+    cached = loadEnv();
+  }
+  return cached;
+}
+
+/**
+ * Lazy env proxy: validation only runs when a value is actually read.
+ * This keeps the admin secrets out of the build-time surface (next build
+ * must not require ADMIN_USERNAME/ADMIN_PASSWORD/JWT_SECRET to be present)
+ * while still failing loudly at request time with a precise error if a
+ * required variable is missing.
+ */
+export const env = new Proxy({} as Record<RequiredEnvVar, string>, {
+  get: (target, prop) => {
+    if (typeof prop === 'string' && REQUIRED_ENV_VARS.includes(prop as RequiredEnvVar)) {
+      return getEnv()[prop as RequiredEnvVar];
+    }
+    return target[prop as keyof typeof target];
+  },
+});

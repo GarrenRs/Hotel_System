@@ -9,7 +9,7 @@ datasource db {
 
 model Room {
   id           String        @id @default(uuid())
-  roomNumber   String
+  roomNumber   String        @unique
   roomType     String
   status       String        @default("AVAILABLE") // AVAILABLE | OCCUPIED | CLEANING | MAINTENANCE
   createdAt    DateTime      @default(now())

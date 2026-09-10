@@ -4,11 +4,19 @@ import React, { useEffect, useState } from 'react';
 import { useLanguage } from '@/components/providers/LanguageContext';
 import { RoomEntity } from '@/domain/room/entities';
 import { RoomStatus } from '@/domain/room/enums';
-import { ROOM_TYPES_LIST, ROOM_STATUS_CONFIG } from '@/lib/constants';
+import { ROOM_TYPES_LIST } from '@/lib/constants';
+import { ROOM_STATUS_UI, ROOM_TRANSITIONS, transitionLabelKey } from '@/lib/status';
 import { RefreshCw, ChevronDown, DoorOpen, AlertCircle } from 'lucide-react';
 
 const BOOT_RETRY_ATTEMPTS = 4;
 const BOOT_RETRY_DELAY_MS = 1200;
+
+interface MaintenanceWarning {
+  reservationId: string;
+  customerName: string;
+  arrivalDate: string;
+  departureDate: string;
+}
 
 export default function AdminRoomsPage() {
   const { t } = useLanguage();
@@ -17,6 +25,7 @@ export default function AdminRoomsPage() {
   const [openRoomId, setOpenRoomId] = useState<string | null>(null);
   const [savingId, setSavingId] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [maintenanceWarnings, setMaintenanceWarnings] = useState<Record<string, MaintenanceWarning[]>>({});
 
   const fetchRooms = async () => {
     setLoading(true);
@@ -74,15 +83,11 @@ export default function AdminRoomsPage() {
     };
   }, []);
 
-  const handleStatusUpdate = async (roomId: string, newStatus: RoomStatus) => {
+  const handleTransition = async (roomId: string, newStatus: string) => {
     if (savingId) return;
 
     const previousStatus = rooms.find((r) => r.id === roomId)?.status;
 
-    // Optimistic update; roll back if the server rejects it.
-    setRooms((prev) =>
-      prev.map((r) => (r.id === roomId ? { ...r, status: newStatus } : r))
-    );
     setSavingId(roomId);
     setErrorMessage(null);
 
@@ -94,11 +99,15 @@ export default function AdminRoomsPage() {
       });
       const result = await res.json();
 
-      if (!result.success) {
-        setRooms((prev) =>
-          prev.map((r) => (r.id === roomId ? { ...r, status: previousStatus } : r))
-        );
-        setErrorMessage(result.errors?.[0] || result.message || 'Failed to update room status.');
+      if (result.success) {
+        const { room, warnings } = result.data;
+        setRooms((prev) => prev.map((r) => (r.id === roomId ? { ...r, ...room } : r)));
+        if (newStatus === RoomStatus.MAINTENANCE) {
+          setMaintenanceWarnings((prev) => ({ ...prev, [roomId]: warnings }));
+        }
+      } else {
+        const key = result.errors?.[0] || 'admin.errors.invalidRoomTransition';
+        setErrorMessage(t(key));
       }
     } catch (err) {
       console.error(err);
@@ -111,7 +120,7 @@ export default function AdminRoomsPage() {
     }
   };
 
-  const statusCounts = (Object.keys(ROOM_STATUS_CONFIG) as RoomStatus[]).map((status) => ({
+  const statusCounts = (Object.keys(ROOM_STATUS_UI) as RoomStatus[]).map((status) => ({
     status,
     count: rooms.filter((r) => r.status === status).length,
   }));
@@ -138,21 +147,21 @@ export default function AdminRoomsPage() {
           className="flex items-center gap-2 px-4 py-2 rounded-full border border-[#B99246]/40 text-[#B99246] text-xs font-semibold hover:bg-[#B99246]/10 transition-all cursor-pointer"
         >
           <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
-          <span>{t('admin.actions.save')}</span>
+          <span>{t('admin.actions.refresh')}</span>
         </button>
       </div>
 
       {/* Live Status Counts */}
       <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-3">
         {statusCounts.map(({ status, count }) => {
-          const config = ROOM_STATUS_CONFIG[status];
+          const config = ROOM_STATUS_UI[status];
           return (
             <div
               key={status}
               className={`p-4 rounded-2xl border ${config.badgeBg} flex items-center justify-between gap-2`}
             >
               <span className="text-xs font-bold leading-tight">
-                {t(`common.status.${status.toLowerCase()}`)}
+                {t(config.labelKey)}
               </span>
               <span className="text-2xl font-bold">{loading ? '...' : count}</span>
             </div>
@@ -170,8 +179,12 @@ export default function AdminRoomsPage() {
       {/* Room Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
         {rooms.map((room) => {
-          const statusConfig = ROOM_STATUS_CONFIG[room.status as RoomStatus];
+          const statusUi = ROOM_STATUS_UI[room.status as RoomStatus];
           const isOpen = openRoomId === room.id;
+          const allowedTransitions = ROOM_TRANSITIONS[room.status as RoomStatus] ?? [];
+          const warnings = maintenanceWarnings[room.id] ?? [];
+          const isOccupied = room.status === RoomStatus.OCCUPIED;
+
           return (
             <div
               key={room.id}
@@ -201,40 +214,76 @@ export default function AdminRoomsPage() {
                 </div>
                 <div className="mt-4">
                   <span
-                    className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold border ${statusConfig.badgeBg}`}
+                    className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold border ${statusUi.badgeBg}`}
                   >
-                    <span className="text-[10px]">{statusConfig.badgeText.split(' ')[0]}</span>
-                    <span>{t(`common.status.${String(room.status).toLowerCase()}`)}</span>
+                    <span className="text-[10px]">{statusUi.dot}</span>
+                    <span>{t(statusUi.labelKey)}</span>
                   </span>
                 </div>
               </button>
 
               {isOpen && (
-                <div className="px-6 pb-6 border-t border-[#EAEAEA] pt-4">
-                  <p className="text-[11px] font-bold text-[#333333]/60 mb-3">
-                    {t('admin.roomsSection.changeStatus')}
-                  </p>
-                  <div className="grid grid-cols-2 gap-2">
-                    {(Object.keys(ROOM_STATUS_CONFIG) as RoomStatus[]).map((status) => {
-                      const config = ROOM_STATUS_CONFIG[status];
-                      const isActive = room.status === status;
-                      return (
-                        <button
-                          key={status}
-                          type="button"
-                          disabled={savingId === room.id}
-                          onClick={() => handleStatusUpdate(room.id, status)}
-                          className={`px-3 py-2 rounded-xl text-[11px] font-bold border transition-all cursor-pointer disabled:opacity-40 ${
-                            isActive
-                              ? `${config.badgeBg} border-2`
-                              : 'border-[#EAEAEA] text-[#333333]/60 hover:border-[#B99246]'
-                          }`}
-                        >
-                          {t(`common.status.${status.toLowerCase()}`)}
-                        </button>
-                      );
-                    })}
-                  </div>
+                <div className="px-6 pb-6 border-t border-[#EAEAEA] pt-4 space-y-4">
+                  {isOccupied ? (
+                    <div className="space-y-2">
+                      <p className="text-[11px] font-bold text-[#333333]/60">
+                        {t('admin.roomsSection.currentGuest')}
+                      </p>
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm font-bold text-[#111111]">
+                          {room.currentGuestName || '—'}
+                        </span>
+                        {room.currentGuestDeparture && (
+                          <span className="text-[11px] text-[#333333]/60" dir="ltr">
+                            {t('admin.table.departure')}: {room.currentGuestDeparture}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  ) : allowedTransitions.length === 0 ? (
+                    <p className="text-[11px] text-[#333333]/60">
+                      {t('admin.roomsSection.noActions')}
+                    </p>
+                  ) : (
+                    <div className="space-y-3">
+                      <p className="text-[11px] font-bold text-[#333333]/60">
+                        {t('admin.roomsSection.changeStatus')}
+                      </p>
+                      <div className="grid grid-cols-2 gap-2">
+                        {allowedTransitions.map((target) => (
+                          <button
+                            key={target}
+                            type="button"
+                            disabled={savingId === room.id && openRoomId === room.id}
+                            onClick={() => handleTransition(room.id, target)}
+                            className="px-3 py-2 rounded-xl text-[11px] font-bold border border-[#B99246]/40 text-[#B99246] hover:bg-[#B99246] hover:text-[#111111] transition-all cursor-pointer disabled:opacity-40"
+                          >
+                            {t(transitionLabelKey(room.status as string, target))}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {warnings.length > 0 && (
+                    <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 space-y-2">
+                      <p className="text-[11px] font-bold text-amber-800">
+                        {t('admin.roomsSection.maintenanceWarnings')}
+                      </p>
+                      <ul className="space-y-1.5 text-[11px] text-amber-900">
+                        {warnings.map((warning) => (
+                          <li key={warning.reservationId} className="flex justify-between gap-2">
+                            <span className="font-bold">
+                              {warning.customerName} ({warning.reservationId})
+                            </span>
+                            <span dir="ltr">
+                              {warning.arrivalDate} → {warning.departureDate}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                 </div>
               )}
             </div>

@@ -13,6 +13,7 @@ export interface ReservationEntity {
   status: ReservationStatus | string;
   notes?: string | null;
   roomId?: string | null;
+  roomNumber?: string | null;
   createdAt: Date | string;
   updatedAt: Date | string;
 }

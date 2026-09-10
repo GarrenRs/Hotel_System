@@ -1,21 +1,28 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { reservationFormSchema, ReservationFormValues } from '@/lib/validations/reservation.schema';
 import { useLanguage } from '@/components/providers/LanguageContext';
 import { ROOM_TYPES_LIST } from '@/lib/constants';
 import { RoomEntity } from '@/domain/room/entities';
-import { RoomStatus } from '@/domain/room/enums';
 import { Calendar, Users, BedDouble, User, Phone, Mail, FileText, CheckCircle2, AlertCircle, KeyRound } from 'lucide-react';
-
-const ROOMS_RETRY_ATTEMPTS = 5;
-const ROOMS_RETRY_DELAY_MS = 800;
 
 interface BookingFormProps {
   initialRoomType?: string | null;
 }
+
+interface SuccessData {
+  reservationId: string;
+  roomTypeTitle: string;
+  roomNumber: string;
+  arrivalDate: string;
+  departureDate: string;
+  guests: number;
+}
+
+type AvailabilityStatus = 'idle' | 'loading' | 'ready' | 'error';
 
 export const BookingForm: React.FC<BookingFormProps> = ({ initialRoomType }) => {
   const { t } = useLanguage();
@@ -24,19 +31,20 @@ export const BookingForm: React.FC<BookingFormProps> = ({ initialRoomType }) => 
       ? initialRoomType
       : ROOM_TYPES_LIST[0].id;
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [successData, setSuccessData] = useState<{ reservationId: string } | null>(null);
+  const [successData, setSuccessData] = useState<SuccessData | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [roomState, setRoomState] = useState<{ status: 'loading' | 'ready' | 'error'; rooms: RoomEntity[] }>({
-    status: 'loading',
+  const [availability, setAvailability] = useState<{ status: AvailabilityStatus; rooms: RoomEntity[] }>({
+    status: 'idle',
     rooms: [],
   });
   const [refreshKey, setRefreshKey] = useState(0);
-  const [selectedRoomType, setSelectedRoomType] = useState<string>(defaultRoomType);
 
   const {
     register,
     handleSubmit,
     reset,
+    watch,
+    setValue,
     formState: { errors },
   } = useForm<ReservationFormValues>({
     resolver: zodResolver(reservationFormSchema),
@@ -47,50 +55,72 @@ export const BookingForm: React.FC<BookingFormProps> = ({ initialRoomType }) => 
     },
   });
 
+  const watchArrival = watch('arrivalDate');
+  const watchDeparture = watch('departureDate');
+  const watchRoomType = watch('roomType');
+  const watchGuests = watch('guests');
+
+  const selectedTypeConfig = useMemo(
+    () => ROOM_TYPES_LIST.find((r) => r.id === watchRoomType),
+    [watchRoomType]
+  );
+
+  // Keep requested guests within the selected room type's capacity.
+  useEffect(() => {
+    if (selectedTypeConfig && Number(watchGuests) > selectedTypeConfig.capacity) {
+      setValue('guests', selectedTypeConfig.capacity, { shouldValidate: true });
+    }
+  }, [selectedTypeConfig, watchGuests, setValue]);
+
+  const datesValid =
+    Boolean(watchArrival) && Boolean(watchDeparture) && watchArrival < watchDeparture;
+
+  // Date-aware availability: the server applies the shared offer rule
+  // (status != MAINTENANCE, no conflicting reservation, same/upcoming-day rule).
   useEffect(() => {
     let cancelled = false;
-    let attempt = 0;
 
-    // Briefly retry on a transient empty/failure instead of showing an error.
-    async function poll() {
+    if (!datesValid) {
+      setAvailability({ status: 'idle', rooms: [] });
+      return;
+    }
+
+    setAvailability({ status: 'loading', rooms: [] });
+
+    async function loadAvailability() {
       try {
-        const res = await fetch('/api/rooms');
+        const params = new URLSearchParams({
+          arrival: watchArrival,
+          departure: watchDeparture,
+        });
+        if (watchRoomType) params.append('roomType', watchRoomType);
+
+        const res = await fetch(`/api/rooms/available?${params.toString()}`);
         const result = await res.json();
 
-        if (!result.success) {
-          throw new Error(result.message || 'Failed to fetch rooms');
-        }
-
         if (cancelled) return;
 
-        const available = result.data.filter(
-          (room: RoomEntity) => room.roomType === selectedRoomType && room.status === RoomStatus.AVAILABLE
-        );
-        setRoomState({ status: 'ready', rooms: available });
+        if (res.ok && result.success) {
+          setAvailability({ status: 'ready', rooms: result.data });
+        } else {
+          setAvailability({ status: 'error', rooms: [] });
+        }
       } catch (err) {
         console.error(err);
-        if (cancelled) return;
-
-        if (attempt < ROOMS_RETRY_ATTEMPTS) {
-          attempt += 1;
-          setTimeout(poll, ROOMS_RETRY_DELAY_MS);
-        } else {
-          setRoomState({ status: 'error', rooms: [] });
-        }
+        if (!cancelled) setAvailability({ status: 'error', rooms: [] });
       }
     }
 
-    poll();
+    loadAvailability();
 
     return () => {
       cancelled = true;
     };
-  }, [selectedRoomType, refreshKey]);
+  }, [watchArrival, watchDeparture, watchRoomType, datesValid, refreshKey]);
 
   const onSubmit = async (data: ReservationFormValues) => {
     setIsSubmitting(true);
     setErrorMessage(null);
-    setSuccessData(null);
 
     try {
       const res = await fetch('/api/reservations', {
@@ -102,22 +132,37 @@ export const BookingForm: React.FC<BookingFormProps> = ({ initialRoomType }) => 
       const result = await res.json();
 
       if (!res.ok || !result.success) {
-        throw new Error(result.errors?.[0] || result.message || 'Failed to submit reservation request');
+        const key = result.errors?.[0] || 'errors.serverError';
+        setErrorMessage(t(key));
+        return;
       }
 
-      setSuccessData({ reservationId: result.data.reservationId });
-      reset({ roomType: selectedRoomType, guests: 2, roomId: '' });
+      const created = result.data;
+      const chosenRoom = availability.rooms.find((room) => room.id === created.roomId);
+      const typeConfig = ROOM_TYPES_LIST.find((r) => r.id === created.roomType);
+
+      setSuccessData({
+        reservationId: created.reservationId,
+        roomTypeTitle: typeConfig ? t(`rooms.${typeConfig.key}.title`) : String(created.roomType),
+        roomNumber: created.roomNumber ?? chosenRoom?.roomNumber ?? '—',
+        arrivalDate: created.arrivalDate,
+        departureDate: created.departureDate,
+        guests: created.guests,
+      });
+
+      reset({ roomType: watchRoomType, guests: 2, roomId: '' });
       setRefreshKey((k) => k + 1);
     } catch (err) {
-      setErrorMessage(err instanceof Error ? err.message : t('errors.serverError'));
+      console.error(err);
+      setErrorMessage(t('errors.serverError'));
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const roomTypeTitle = (roomType: RoomEntity['roomType']): string => {
+  const roomTypeTitle = (roomType: string): string => {
     const config = ROOM_TYPES_LIST.find((c) => c.id === roomType);
-    return config ? t(`rooms.${config.key}.title`) : String(roomType);
+    return config ? t(`rooms.${config.key}.title`) : roomType;
   };
 
   return (
@@ -139,13 +184,43 @@ export const BookingForm: React.FC<BookingFormProps> = ({ initialRoomType }) => 
             {t('contact.bookingConfirmedMessage')}
           </h3>
           <p className="text-xs text-emerald-800">
-            {t('admin.table.id')}: <span className="font-bold font-mono text-emerald-950">{successData.reservationId}</span>
+            {t('admin.table.id')}:{' '}
+            <span className="font-bold font-mono text-emerald-950">{successData.reservationId}</span>
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-start">
+            <div className="bg-white rounded-xl p-3 border border-emerald-200 text-xs">
+              <div className="text-[11px] text-emerald-700/70 font-semibold">
+                {t('contact.roomTypeLabel')}
+              </div>
+              <div className="font-bold text-emerald-950">{successData.roomTypeTitle}</div>
+            </div>
+            <div className="bg-white rounded-xl p-3 border border-emerald-200 text-xs">
+              <div className="text-[11px] text-emerald-700/70 font-semibold">
+                {t('contact.roomNumberLabel')}
+              </div>
+              <div className="font-bold text-emerald-950 font-mono">{successData.roomNumber}</div>
+            </div>
+            <div className="bg-white rounded-xl p-3 border border-emerald-200 text-xs">
+              <div className="text-[11px] text-emerald-700/70 font-semibold">
+                {t('contact.arrivalLabel')}
+              </div>
+              <div className="font-bold text-emerald-950">{successData.arrivalDate}</div>
+            </div>
+            <div className="bg-white rounded-xl p-3 border border-emerald-200 text-xs">
+              <div className="text-[11px] text-emerald-700/70 font-semibold">
+                {t('contact.departureLabel')}
+              </div>
+              <div className="font-bold text-emerald-950">{successData.departureDate}</div>
+            </div>
+          </div>
+          <p className="text-[11px] text-emerald-800 leading-relaxed">
+            {t('contact.keepReservationId')}
           </p>
           <button
             onClick={() => setSuccessData(null)}
             className="mt-4 px-6 py-2.5 rounded-full bg-emerald-600 text-white text-xs font-bold hover:bg-emerald-700 transition-all cursor-pointer"
           >
-            {t('common.reserveNow')}
+            {t('contact.bookAnotherRoom')}
           </button>
         </div>
       ) : (
@@ -163,7 +238,7 @@ export const BookingForm: React.FC<BookingFormProps> = ({ initialRoomType }) => 
             <div>
               <label className="block text-xs font-semibold text-[#111111] mb-2 flex items-center gap-1.5">
                 <Calendar className="w-3.5 h-3.5 text-[#B99246]" />
-                <span>{t('admin.table.arrival')}</span>
+                <span>{t('contact.arrivalLabel')}</span>
               </label>
               <input
                 type="date"
@@ -179,7 +254,7 @@ export const BookingForm: React.FC<BookingFormProps> = ({ initialRoomType }) => 
             <div>
               <label className="block text-xs font-semibold text-[#111111] mb-2 flex items-center gap-1.5">
                 <Calendar className="w-3.5 h-3.5 text-[#B99246]" />
-                <span>{t('admin.table.departure')}</span>
+                <span>{t('contact.departureLabel')}</span>
               </label>
               <input
                 type="date"
@@ -195,15 +270,20 @@ export const BookingForm: React.FC<BookingFormProps> = ({ initialRoomType }) => 
             <div>
               <label className="block text-xs font-semibold text-[#111111] mb-2 flex items-center gap-1.5">
                 <Users className="w-3.5 h-3.5 text-[#B99246]" />
-                <span>{t('admin.table.guests')}</span>
+                <span>{t('contact.guestsLabel')}</span>
               </label>
               <input
                 type="number"
                 min="1"
-                max="10"
+                max={selectedTypeConfig?.capacity ?? 10}
                 {...register('guests')}
                 className="w-full px-4 h-11 rounded-2xl border border-[#EAEAEA] bg-[#FAF9F7] text-xs focus:outline-none focus:border-[#B99246] transition-colors"
               />
+              {selectedTypeConfig && Number(watchGuests) > 0 && !errors.guests && (
+                <p className="text-[11px] text-[#333333]/60 mt-1">
+                  {t('contact.capacityLabel')}: {selectedTypeConfig.capacity}
+                </p>
+              )}
               {errors.guests && (
                 <p className="text-[11px] text-rose-500 mt-1">{t(errors.guests.message || '')}</p>
               )}
@@ -214,10 +294,10 @@ export const BookingForm: React.FC<BookingFormProps> = ({ initialRoomType }) => 
           <div>
             <label className="block text-xs font-semibold text-[#111111] mb-2 flex items-center gap-1.5">
               <BedDouble className="w-3.5 h-3.5 text-[#B99246]" />
-              <span>{t('admin.table.roomType')}</span>
+              <span>{t('contact.roomTypeLabel')}</span>
             </label>
             <select
-              {...register('roomType', { onChange: (e) => setSelectedRoomType(e.target.value) })}
+              {...register('roomType', { onChange: () => setValue('roomId', '', { shouldValidate: true }) })}
               className="w-full px-4 h-11 rounded-2xl border border-[#EAEAEA] bg-[#FAF9F7] text-xs focus:outline-none focus:border-[#B99246] transition-colors cursor-pointer"
             >
               {ROOM_TYPES_LIST.map((room) => (
@@ -231,34 +311,44 @@ export const BookingForm: React.FC<BookingFormProps> = ({ initialRoomType }) => 
             )}
           </div>
 
-          {/* Room Selection — live AVAILABLE rooms for the chosen type */}
+          {/* Room Selection — offerable rooms for the chosen dates & type */}
           <div>
             <label className="block text-xs font-semibold text-[#111111] mb-2 flex items-center gap-1.5">
               <KeyRound className="w-3.5 h-3.5 text-[#B99246]" />
-              <span>{t('admin.roomsSection.selectRoom')}</span>
+              <span>{t('contact.selectRoomLabel')}</span>
             </label>
-            <select
-              {...register('roomId')}
-              className="w-full px-4 h-11 rounded-2xl border border-[#EAEAEA] bg-[#FAF9F7] text-xs focus:outline-none focus:border-[#B99246] transition-colors cursor-pointer disabled:opacity-50"
-              disabled={roomState.status !== 'ready'}
-            >
-              <option value="">
-                {roomState.status === 'loading' ? '...' : t('admin.roomsSection.selectRoom')}
-              </option>
-              {roomState.rooms.map((room) => (
-                <option key={room.id} value={room.id}>
-                  {t('admin.roomsSection.room')} {room.roomNumber} — {roomTypeTitle(room.roomType)}
-                </option>
-              ))}
-            </select>
-            {roomState.status === 'ready' && roomState.rooms.length === 0 && (
-              <p className="text-[11px] text-amber-600 mt-1">{t('admin.roomsSection.noAvailableRooms')}</p>
-            )}
-            {roomState.status === 'error' && (
-              <div className="flex items-center gap-2 bg-rose-50 border border-rose-200 text-rose-700 p-3 rounded-xl text-[11px] mt-1">
-                <AlertCircle className="w-4 h-4 shrink-0 text-rose-600" />
-                <span>{t('errors.roomsLoadFailed')}</span>
-              </div>
+            {!datesValid ? (
+              <p className="text-[11px] text-[#333333]/60 mt-1">
+                {t('contact.selectDatesHint')}
+              </p>
+            ) : (
+              <>
+                <select
+                  {...register('roomId')}
+                  className="w-full px-4 h-11 rounded-2xl border border-[#EAEAEA] bg-[#FAF9F7] text-xs focus:outline-none focus:border-[#B99246] transition-colors cursor-pointer disabled:opacity-50"
+                  disabled={availability.status !== 'ready'}
+                >
+                  <option value="">
+                    {availability.status === 'loading' ? '...' : t('contact.selectRoomLabel')}
+                  </option>
+                  {availability.rooms.map((room) => (
+                    <option key={room.id} value={room.id}>
+                      {t('admin.roomsSection.room')} {room.roomNumber} — {roomTypeTitle(String(room.roomType))}
+                    </option>
+                  ))}
+                </select>
+                {availability.status === 'ready' && availability.rooms.length === 0 && (
+                  <p className="text-[11px] text-amber-600 mt-1">
+                    {t('contact.noAvailableRooms')}
+                  </p>
+                )}
+                {availability.status === 'error' && (
+                  <div className="flex items-center gap-2 bg-rose-50 border border-rose-200 text-rose-700 p-3 rounded-xl text-[11px] mt-1">
+                    <AlertCircle className="w-4 h-4 shrink-0 text-rose-600" />
+                    <span>{t('errors.roomsLoadFailed')}</span>
+                  </div>
+                )}
+              </>
             )}
             {errors.roomId && (
               <p className="text-[11px] text-rose-500 mt-1">{t(errors.roomId.message || '')}</p>
@@ -336,7 +426,7 @@ export const BookingForm: React.FC<BookingFormProps> = ({ initialRoomType }) => 
           {/* Submit Button */}
           <button
             type="submit"
-            disabled={isSubmitting}
+            disabled={isSubmitting || availability.status === 'loading'}
             className="w-full h-12 rounded-2xl bg-[#B99246] text-[#111111] font-bold text-xs uppercase tracking-widest hover:bg-[#D4AF37] transition-all shadow-lg shadow-[#B99246]/20 cursor-pointer disabled:opacity-50"
           >
             {isSubmitting ? '...' : t('common.reserveNow')}

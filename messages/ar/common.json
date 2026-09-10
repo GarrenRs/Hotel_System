@@ -31,9 +31,11 @@
   },
   "status": {
     "new": "جديد",
-    "pending": "قيد الانتظار",
     "confirmed": "مؤكد",
+    "checkedIn": "وصل وتسكن الغرفة",
+    "checkedOut": "غادر الفندق",
     "cancelled": "ملغي",
+    "unknown": "حالة غير معروفة",
     "available": "متاحة",
     "occupied": "مشغولة",
     "cleaning": "قيد التنظيف",

@@ -1,3 +1,5 @@
+> **Type:** Implementation Phase | **ID:** Phase 1 | **Status:** CLOSED | **Based On:** — | **Superseded By:** —
+
 # Phase 1 — Database Foundation (Postgres + Room model + conflict logic)
 
 ## What changed
@@ -33,7 +35,7 @@ SQLite cannot support the isolated demo sessions planned for later phases, and r
    - POST two reservations to `app/api/reservations` with the same `roomId` and overlapping dates → the second request returns HTTP `400` with `{ success: false }` and the conflict message in `errors`, not a 500.
    - PATCH a reservation with an overlapping room/dates to `CONFIRMED` → HTTP `400` with the same response shape.
 4. Type/lint check (done):
-   - Phase 1 files pass `tsc --noEmit` and `eslint` (0 new errors). The full app cannot yet be typechecked because the repo has no `tsconfig.json` — pre-existing, see `docs/notes.md`.
+   - Phase 1 files pass `tsc --noEmit` and `eslint` (0 new errors). The full app cannot yet be typechecked because the repo has no `tsconfig.json` — pre-existing, see `docs/archive/notes-journal.md`.
 
 ## Environment variables added/changed
 

@@ -11,6 +11,7 @@
   "recentReservationsTitle": "أحدث طلبات الحجز",
   "viewAll": "عرض الكل",
   "reservations": "إدارة الحجوزات",
+  "reservationsSubtitle": "قائمة طلبات الحجز والحالة الحية لكل طلب",
   "rooms": "إدارة الغرف",
   "roomsSubtitle": "لوحة الغرف والأجنحة الحية — الحالة الفعلية لكل غرفة في الفندق",
   "occupancy": "إشغال الغرف",
@@ -19,18 +20,29 @@
   "stats": {
     "total": "إجمالي الطلبات",
     "new": "طلبات جديدة",
-    "pending": "قيد الانتظار",
     "confirmed": "حجوزات مؤكدة",
-    "cancelled": "حجوزات ملغاة"
+    "cancelled": "حجوزات ملغاة",
+    "totalRooms": "إجمالي الغرف",
+    "availableRooms": "غرف متاحة",
+    "occupiedRooms": "غرف مشغولة",
+    "cleaningRooms": "غرف قيد التنظيف",
+    "maintenanceRooms": "غرف تحت الصيانة",
+    "reservedUpcoming": "حجوزات قادمة",
+    "todayArrivals": "واصلون اليوم",
+    "todayDepartures": "مغادرون اليوم",
+    "currentGuests": "النزلاء الحاليون"
   },
+  "currentGuestsEmpty": "لا يوجد نزلاء مقييمون حالياً في الفندق",
   "table": {
     "id": "رقم الحجز",
     "customer": "اسم العميل",
+    "guest": "النزيل",
     "phone": "الهاتف",
     "email": "البريد الإلكتروني",
     "arrival": "تاريخ الوصول",
     "departure": "تاريخ المغادرة",
     "guests": "الضيوف",
+    "roomNumber": "رقم الغرفة",
     "roomType": "نوع الغرفة",
     "status": "الحالة",
     "createdAt": "تاريخ الطلب",
@@ -43,15 +55,23 @@
   },
   "details": {
     "title": "تفاصيل طلب الحجز",
-    "changeStatus": "تغيير حالة الطلب",
+    "changeStatus": "الحالة والتحديثات",
     "deleteConfirm": "هل أنت تأكد من رغبتك في حذف هذا الحجز نهائياً؟",
-    "notes": "ملاحظات إضافية"
+    "notes": "ملاحظات إضافية",
+    "noTransitions": "حالة نهائية — لا يمكن تغيير حالة هذا الحجز."
   },
   "actions": {
     "view": "معاينة",
     "delete": "حذف",
     "save": "حفظ التغييرات",
-    "cancel": "إلغاء"
+    "cancel": "إلغاء",
+    "refresh": "تحديث",
+    "confirm": "تأكيد الحجز",
+    "checkIn": "تسجيل الوصول",
+    "checkOut": "تسجيل المغادرة",
+    "markReady": "جاهزة للبيع",
+    "maintenance": "إرسال للصيانة",
+    "backToService": "إعادة للخدمة"
   },
   "roomsSection": {
     "room": "الغرفة",
@@ -59,7 +79,10 @@
     "status": "الحالة",
     "changeStatus": "تغيير الحالة",
     "selectRoom": "اختر الغرفة",
-    "noAvailableRooms": "لا توجد غرف متاحة من هذا النوع حالياً"
+    "noAvailableRooms": "لا توجد غرف متاحة من هذا النوع حالياً",
+    "currentGuest": "النزيل الحالي",
+    "maintenanceWarnings": "حجوزات مؤكدة ضمن فترة الصيانة (لن تُلغى تلقائياً):",
+    "noActions": "لا توجد إجراءات يدوية متاحة لحالة الغرفة الحالية."
   },
   "settingsData": {
     "subtitle": "إعدادات النظام والمسؤول المباشر",
@@ -71,6 +94,14 @@
   },
   "errors": {
     "updateFailed": "تعذر تحديث حالة الطلب. يرجى المحاولة مرة أخرى.",
-    "confirmConflict": "تعذر تأكيد الحجز: الغرفة محجوزة بالفعل لهذه التواريخ."
+    "confirmConflict": "تعذر تأكيد الحجز: الغرفة محجوزة بالفعل لهذه التواريخ.",
+    "invalidTransition": "هذا التحول غير مسموح به لحالة الحجز الحالية.",
+    "checkInBeforeArrival": "لا يمكن تسجيل الوصول قبل تاريخ الوصول المحدد.",
+    "checkInRoomNotReady": "تعذر تسجيل الوصول: الغرفة غير جاهزة حالياً.",
+    "conflict": "تعذر إتمام العملية: الغرفة محجوزة بالفعل لهذه الفترة.",
+    "invalidRoomStatus": "قيمة الحالة غير صالحة.",
+    "invalidRoomTransition": "لا يمكن تغيير حالة الغرفة بهذه الطريقة من حالتها الحالية.",
+    "roomNotFound": "الغرفة غير موجودة.",
+    "reservationNotFound": "طلب الحجز غير موجود."
   }
 }

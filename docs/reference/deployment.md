@@ -1,3 +1,6 @@
+> **Type:** Reference (operational) | **Status:** CURRENT
+> Moved from repo root `DEPLOYMENT.md` on 2026-09-08 (Documentation Architecture Refactor).
+
 # Deployment Checklist — Hotel Management Template
 
 Short, ordered checklist for handing a fresh client installation. Complete **every** step; each one is production-critical.
@@ -20,10 +23,15 @@ Create `.env.local` (never commit it) with exactly these values:
 ## 2. Database
 
 1. Create a fresh Supabase project for the client; copy its pooled `DATABASE_URL`.
-2. Apply the Prisma schema to that database:
+2. Apply the schema via the committed migration history:
    - `npx prisma generate`
-   - `npx prisma db push` (the project has no committed migration files; `db push` is the current schema-sync flow)
-3. **Optional — realistic starter data**: run `npx prisma db seed` once to load the 13-room / 8-reservation sample set (relative dates). Only do this on a brand-new database, never on one holding real guest data.
+   - `npx prisma migrate deploy` — applies `0_init` + the Phase 10 lifecycle
+     migration (unique room numbers + reservation status backfill). `db push` is only
+     for prototype throws now.
+3. **Optional — realistic starter data**: run `npx prisma db seed` once to load the
+   13-room / 9-reservation sample set (relative dates; exercises every lifecycle
+   state). Only do this on a brand-new database, never on one holding real guest data.
+   (Requires `DATABASE_URL` injected — see `environment-notes.md`.)
 
 ## 3. Branding
 
@@ -41,10 +49,13 @@ rg -i "demo|session|orkestrix|hotelhb" --glob "!docs/**" --glob "!.next/**"
 Expected: **zero matches** in production code. `docs/*` may still describe the removed demo phases historically — that is intentional.
 
 - Confirm `/admin/login` renders **no credentials on screen**.
-- Confirm admin APIs require the admin JWT cookie (`hotel_admin_token`) and the public booking flow (`GET /api/rooms`, `POST /api/reservations`) works with **no cookie at all**.
-- Run `npx tsc --noEmit` (clean) and `npm run lint` (no new errors) before shipping.
+- Confirm admin APIs require the admin JWT cookie (`hotel_admin_token`) and the public
+  booking flow (`GET /api/rooms`, `GET /api/rooms/available`, `POST /api/reservations`)
+  works with **no cookie at all**.
+- Run `npx tsc --noEmit` (clean), `npm run lint` (no new errors), and — against a running
+  dev server with admin env injected — `npx tsx scripts/verify-st-001.ts` (28/28) before shipping.
 
 ## 5. After launch
 
 - Reservations and room statuses persist across restarts — there is no reset mechanism. Anything deleted is gone.
-- Single admin account; enabling multi-user roles is a future structural change (see `docs/notes.md`).
+- Single admin account; enabling multi-user roles is a future structural change (see `docs/archive/notes-journal.md`).
