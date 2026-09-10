@@ -33,25 +33,25 @@ export default function ContactPage() {
       </section>
       {/* Info Cards */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div className="flex flex-col items-center justify-center p-6 rounded-3xl bg-white border border-[#EAEAEA] shadow-luxury h-full min-h-[160px] text-center space-y-3">
+        <div className="flex flex-col items-center justify-center p-6 rounded-3xl bg-white border border-[#CBC4B6] shadow-luxury h-full min-h-[160px] text-center space-y-3">
           <MapPin className="w-6 h-6 text-[#B99246] mb-1" />
           <h3 className="font-bold text-xs uppercase tracking-wider text-[#111111]">{t('contact.address')}</h3>
           <a href={HOTEL.googleMapsUrl} target="_blank" rel="noreferrer" className="text-xs text-[#333333]/80 hover:text-[#B99246] block">{HOTEL.address}</a>
         </div>
 
-        <div className="flex flex-col items-center justify-center p-6 rounded-3xl bg-white border border-[#EAEAEA] shadow-luxury h-full min-h-[160px] text-center space-y-3">
+        <div className="flex flex-col items-center justify-center p-6 rounded-3xl bg-white border border-[#CBC4B6] shadow-luxury h-full min-h-[160px] text-center space-y-3">
           <Phone className="w-6 h-6 text-[#B99246] mb-1" />
           <h3 className="font-bold text-xs uppercase tracking-wider text-[#111111]">{t('contact.phone')}</h3>
           <PhoneNumber action={HOTEL.phone} display={HOTEL.phoneDisplay} className="text-xs text-[#333333]/80 hover:text-[#B99246] block" />
         </div>
 
-        <div className="flex flex-col items-center justify-center p-6 rounded-3xl bg-white border border-[#EAEAEA] shadow-luxury h-full min-h-[160px] text-center space-y-3">
+        <div className="flex flex-col items-center justify-center p-6 rounded-3xl bg-white border border-[#CBC4B6] shadow-luxury h-full min-h-[160px] text-center space-y-3">
           <FaWhatsapp className="w-6 h-6 text-[#B99246] mb-1" />
           <h3 className="font-bold text-xs uppercase tracking-wider text-[#111111]">{t('contact.whatsapp')}</h3>
           <PhoneNumber action={`https://wa.me/${HOTEL.whatsapp.replace('+', '')}`} display={HOTEL.whatsappDisplay} className="text-xs text-[#333333]/80 hover:text-[#B99246] block" />
         </div>
 
-        <div className="flex flex-col items-center justify-center p-6 rounded-3xl bg-white border border-[#EAEAEA] shadow-luxury h-full min-h-[160px] text-center space-y-3">
+        <div className="flex flex-col items-center justify-center p-6 rounded-3xl bg-white border border-[#CBC4B6] shadow-luxury h-full min-h-[160px] text-center space-y-3">
           <Mail className="w-6 h-6 text-[#B99246] mb-1" />
           <h3 className="font-bold text-xs uppercase tracking-wider text-[#111111]">{t('contact.email')}</h3>
           <a href={`mailto:${HOTEL.email}`} className="text-xs text-[#333333]/80 hover:text-[#B99246] block">{HOTEL.email}</a>
@@ -66,7 +66,7 @@ export default function ContactPage() {
           </Suspense>
         </div>
         <div className="lg:col-span-5 flex flex-col gap-6">
-          <div className="h-full min-h-[400px] rounded-3xl overflow-hidden border border-[#EAEAEA] shadow-luxury relative bg-[#111111]">
+          <div className="h-full min-h-[400px] rounded-3xl overflow-hidden border border-[#CBC4B6] shadow-luxury relative bg-[#111111]">
             <iframe
               src={HOTEL.googleMapsEmbedUrl}
               width="100%"

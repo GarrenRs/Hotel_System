@@ -38,14 +38,14 @@ export default function AboutPage() {
           </p>
 
           <div className="grid grid-cols-2 gap-4 pt-4">
-            <div className="p-4 rounded-2xl bg-white border border-[#EAEAEA] shadow-luxury flex items-center gap-3">
+            <div className="p-4 rounded-2xl bg-white border border-[#CBC4B6] shadow-luxury flex items-center gap-3">
               <Award className="w-6 h-6 text-[#B99246]" />
               <div>
                 <h4 className="font-bold text-xs">{t('home.features.luxuryTitle')}</h4>
                 <p className="text-[11px] text-[#333333]/70">{t('home.features.luxurySub')}</p>
               </div>
             </div>
-            <div className="p-4 rounded-2xl bg-white border border-[#EAEAEA] shadow-luxury flex items-center gap-3">
+            <div className="p-4 rounded-2xl bg-white border border-[#CBC4B6] shadow-luxury flex items-center gap-3">
               <ShieldCheck className="w-6 h-6 text-[#B99246]" />
               <div>
                 <h4 className="font-bold text-xs">{t('home.features.securityTitle')}</h4>
@@ -55,7 +55,7 @@ export default function AboutPage() {
           </div>
         </div>
 
-        <div className="relative h-96 rounded-3xl overflow-hidden border border-[#EAEAEA] shadow-luxury bg-[#111111]">
+        <div className="relative h-96 rounded-3xl overflow-hidden border border-[#CBC4B6] shadow-luxury bg-[#111111]">
           <Image
             src="/images/hero/hotel-lobby.webp"
             alt={`About ${HOTEL.name}`}

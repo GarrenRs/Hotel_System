@@ -98,7 +98,7 @@ export default function AdminReservationsPage() {
   return (
     <div className="space-y-6 animate-fadeIn text-start">
       {/* Page Header */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-[#EAEAEA] pb-6">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-[#CBC4B6] pb-6">
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold text-[#111111]">
             {t('admin.reservations')}
@@ -117,7 +117,7 @@ export default function AdminReservationsPage() {
       </div>
 
       {/* Search & Filters Bar */}
-      <div className="bg-white rounded-3xl p-6 border border-[#EAEAEA] shadow-luxury space-y-4">
+      <div className="bg-white rounded-3xl p-6 border border-[#CBC4B6] shadow-luxury space-y-4">
         <form onSubmit={handleSearchSubmit} className="flex flex-col md:flex-row gap-4">
           {/* Search Input */}
           <div className="flex-1 relative">
@@ -127,7 +127,7 @@ export default function AdminReservationsPage() {
               placeholder={t('admin.filters.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full ps-11 pe-4 py-3 rounded-2xl border border-[#EAEAEA] bg-[#FAF9F7] text-xs focus:outline-none focus:border-[#B99246]"
+              className="w-full ps-11 pe-4 py-3 rounded-2xl border border-[#CBC4B6] bg-[#FAF9F7] text-xs focus:outline-none focus:border-[#B99246]"
             />
           </div>
 
@@ -136,7 +136,7 @@ export default function AdminReservationsPage() {
             <select
               value={selectedStatus}
               onChange={(e) => setSelectedStatus(e.target.value)}
-              className="w-full px-4 py-3 rounded-2xl border border-[#EAEAEA] bg-[#FAF9F7] text-xs focus:outline-none focus:border-[#B99246] cursor-pointer"
+              className="w-full px-4 py-3 rounded-2xl border border-[#CBC4B6] bg-[#FAF9F7] text-xs focus:outline-none focus:border-[#B99246] cursor-pointer"
             >
               <option value="ALL">{t('admin.filters.allStatuses')}</option>
               {Object.values(ReservationStatus).map((st) => (
@@ -152,7 +152,7 @@ export default function AdminReservationsPage() {
             <select
               value={selectedRoomType}
               onChange={(e) => setSelectedRoomType(e.target.value)}
-              className="w-full px-4 py-3 rounded-2xl border border-[#EAEAEA] bg-[#FAF9F7] text-xs focus:outline-none focus:border-[#B99246] cursor-pointer"
+              className="w-full px-4 py-3 rounded-2xl border border-[#CBC4B6] bg-[#FAF9F7] text-xs focus:outline-none focus:border-[#B99246] cursor-pointer"
             >
               <option value="ALL">{t('admin.filters.allRoomTypes')}</option>
               {ROOM_TYPES_LIST.map((room) => (
@@ -166,7 +166,7 @@ export default function AdminReservationsPage() {
       </div>
 
       {/* Table */}
-      <div className="bg-white rounded-3xl border border-[#EAEAEA] shadow-luxury overflow-hidden">
+      <div className="bg-white rounded-3xl border border-[#CBC4B6] shadow-luxury overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-xs text-start">
             <thead>
@@ -181,7 +181,7 @@ export default function AdminReservationsPage() {
                 <th className="py-4 px-4 font-semibold text-center">{t('admin.table.actions')}</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#EAEAEA]">
+            <tbody className="divide-y divide-[#CBC4B6]">
               {loading ? (
                 <tr>
                   <td colSpan={8} className="py-12 text-center text-[#333333]/50">

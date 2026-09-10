@@ -24,7 +24,7 @@ export const RoomCard: React.FC<RoomCardProps> = ({
   const { t } = useLanguage();
 
   return (
-    <div className="bg-white rounded-3xl overflow-hidden border border-[#EAEAEA] shadow-luxury shadow-luxury-hover flex flex-col group">
+    <div className="bg-white rounded-3xl overflow-hidden border border-[#CBC4B6] shadow-luxury shadow-luxury-hover flex flex-col group">
       {/* Image Container */}
       <div className="relative h-64 sm:h-72 w-full overflow-hidden bg-[#111111]">
         <Image
@@ -52,7 +52,7 @@ export const RoomCard: React.FC<RoomCardProps> = ({
         </div>
 
         {/* Room Attributes */}
-        <div className="flex items-center gap-6 pt-4 border-t border-[#EAEAEA] text-xs text-[#333333]/70 font-medium">
+        <div className="flex items-center gap-6 pt-4 border-t border-[#CBC4B6] text-xs text-[#333333]/70 font-medium">
           <div className="flex items-center gap-2">
             <Users className="w-4 h-4 text-[#B99246]" />
             <span>{capacity} {t('rooms.persons')}</span>

@@ -133,11 +133,11 @@ export default function ReservationDetailPage() {
       )}
 
       {/* Main Card */}
-      <div className="bg-white rounded-3xl p-8 border border-[#EAEAEA] shadow-luxury space-y-8 relative overflow-hidden">
+      <div className="bg-white rounded-3xl p-8 border border-[#CBC4B6] shadow-luxury space-y-8 relative overflow-hidden">
         <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#B99246] via-[#D4AF37] to-[#8C6D27]" />
 
         {/* Card Header */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-[#EAEAEA] pb-6">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-[#CBC4B6] pb-6">
           <div>
             <div className="text-xs font-bold text-[#B99246] uppercase tracking-wider">
               {t('admin.details.title')}
@@ -154,7 +154,7 @@ export default function ReservationDetailPage() {
         {/* Info Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-xs">
           {/* Customer Name */}
-          <div className="p-4 rounded-2xl bg-[#FAF9F7] border border-[#EAEAEA] space-y-1">
+          <div className="p-4 rounded-2xl bg-[#FAF9F7] border border-[#CBC4B6] space-y-1">
             <div className="text-[#333333]/60 flex items-center gap-1.5 font-semibold">
               <User className="w-3.5 h-3.5 text-[#B99246]" />
               <span>{t('admin.table.customer')}</span>
@@ -163,7 +163,7 @@ export default function ReservationDetailPage() {
           </div>
 
           {/* Phone */}
-          <div className="p-4 rounded-2xl bg-[#FAF9F7] border border-[#EAEAEA] space-y-1">
+          <div className="p-4 rounded-2xl bg-[#FAF9F7] border border-[#CBC4B6] space-y-1">
             <div className="text-[#333333]/60 flex items-center gap-1.5 font-semibold">
               <Phone className="w-3.5 h-3.5 text-[#B99246]" />
               <span>{t('admin.table.phone')}</span>
@@ -172,7 +172,7 @@ export default function ReservationDetailPage() {
           </div>
 
           {/* Email */}
-          <div className="p-4 rounded-2xl bg-[#FAF9F7] border border-[#EAEAEA] space-y-1">
+          <div className="p-4 rounded-2xl bg-[#FAF9F7] border border-[#CBC4B6] space-y-1">
             <div className="text-[#333333]/60 flex items-center gap-1.5 font-semibold">
               <Mail className="w-3.5 h-3.5 text-[#B99246]" />
               <span>{t('admin.table.email')}</span>
@@ -181,7 +181,7 @@ export default function ReservationDetailPage() {
           </div>
 
           {/* Room Number */}
-          <div className="p-4 rounded-2xl bg-[#FAF9F7] border border-[#EAEAEA] space-y-1">
+          <div className="p-4 rounded-2xl bg-[#FAF9F7] border border-[#CBC4B6] space-y-1">
             <div className="text-[#333333]/60 flex items-center gap-1.5 font-semibold">
               <DoorOpen className="w-3.5 h-3.5 text-[#B99246]" />
               <span>{t('admin.table.roomNumber')}</span>
@@ -192,7 +192,7 @@ export default function ReservationDetailPage() {
           </div>
 
           {/* Room Type */}
-          <div className="p-4 rounded-2xl bg-[#FAF9F7] border border-[#EAEAEA] space-y-1">
+          <div className="p-4 rounded-2xl bg-[#FAF9F7] border border-[#CBC4B6] space-y-1">
             <div className="text-[#333333]/60 flex items-center gap-1.5 font-semibold">
               <BedDouble className="w-3.5 h-3.5 text-[#B99246]" />
               <span>{t('admin.table.roomType')}</span>
@@ -206,7 +206,7 @@ export default function ReservationDetailPage() {
           </div>
 
           {/* Arrival */}
-          <div className="p-4 rounded-2xl bg-[#FAF9F7] border border-[#EAEAEA] space-y-1">
+          <div className="p-4 rounded-2xl bg-[#FAF9F7] border border-[#CBC4B6] space-y-1">
             <div className="text-[#333333]/60 flex items-center gap-1.5 font-semibold">
               <Calendar className="w-3.5 h-3.5 text-[#B99246]" />
               <span>{t('admin.table.arrival')}</span>
@@ -215,7 +215,7 @@ export default function ReservationDetailPage() {
           </div>
 
           {/* Departure */}
-          <div className="p-4 rounded-2xl bg-[#FAF9F7] border border-[#EAEAEA] space-y-1">
+          <div className="p-4 rounded-2xl bg-[#FAF9F7] border border-[#CBC4B6] space-y-1">
             <div className="text-[#333333]/60 flex items-center gap-1.5 font-semibold">
               <Calendar className="w-3.5 h-3.5 text-[#B99246]" />
               <span>{t('admin.table.departure')}</span>
@@ -224,7 +224,7 @@ export default function ReservationDetailPage() {
           </div>
 
           {/* Guests */}
-          <div className="p-4 rounded-2xl bg-[#FAF9F7] border border-[#EAEAEA] space-y-1">
+          <div className="p-4 rounded-2xl bg-[#FAF9F7] border border-[#CBC4B6] space-y-1">
             <div className="text-[#333333]/60 flex items-center gap-1.5 font-semibold">
               <Users className="w-3.5 h-3.5 text-[#B99246]" />
               <span>{t('admin.table.guests')}</span>
@@ -235,7 +235,7 @@ export default function ReservationDetailPage() {
 
         {/* Notes */}
         {reservation.notes && (
-          <div className="p-4 rounded-2xl bg-[#FAF9F7] border border-[#EAEAEA] space-y-2 text-xs">
+          <div className="p-4 rounded-2xl bg-[#FAF9F7] border border-[#CBC4B6] space-y-2 text-xs">
             <div className="text-[#333333]/60 flex items-center gap-1.5 font-semibold">
               <FileText className="w-3.5 h-3.5 text-[#B99246]" />
               <span>{t('admin.details.notes')}</span>
@@ -247,7 +247,7 @@ export default function ReservationDetailPage() {
         )}
 
         {/* Contextual Status Actions (single transition per state) */}
-        <div className="pt-6 border-t border-[#EAEAEA] space-y-4">
+        <div className="pt-6 border-t border-[#CBC4B6] space-y-4">
           <h3 className="text-xs font-bold text-[#111111] uppercase tracking-wider">
             {t('admin.details.changeStatus')}
           </h3>

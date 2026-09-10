@@ -51,7 +51,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="relative h-80 sm:h-96 rounded-3xl overflow-hidden border border-[#EAEAEA] shadow-luxury bg-[#111111]">
+          <div className="relative h-80 sm:h-96 rounded-3xl overflow-hidden border border-[#CBC4B6] shadow-luxury bg-[#111111]">
             <Image
               src="/images/hero/hotel-lobby.webp"
               alt={HOTEL.fullName}
@@ -183,7 +183,7 @@ export default function HomePage() {
 
       {/* Contact Section Preview */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-        <div className="bg-white rounded-3xl p-8 sm:p-12 border border-[#EAEAEA] shadow-luxury grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+        <div className="bg-white rounded-3xl p-8 sm:p-12 border border-[#CBC4B6] shadow-luxury grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
           <div className="space-y-6">
             <span className="text-xs font-bold text-[#B99246] uppercase tracking-widest">
               {t('contact.title')}
@@ -214,7 +214,7 @@ export default function HomePage() {
             </Link>
           </div>
 
-          <div className="h-72 rounded-2xl overflow-hidden border border-[#EAEAEA] relative">
+          <div className="h-72 rounded-2xl overflow-hidden border border-[#CBC4B6] relative">
             <iframe
               src={HOTEL.googleMapsEmbedUrl}
               width="100%"

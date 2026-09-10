@@ -23,7 +23,7 @@ export default function GymPage() {
       </section>
 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        <div className="relative h-96 rounded-3xl overflow-hidden border border-[#EAEAEA] shadow-luxury bg-[#111111]">
+        <div className="relative h-96 rounded-3xl overflow-hidden border border-[#CBC4B6] shadow-luxury bg-[#111111]">
           <Image
             src="/images/gym/hotel-gym.webp"
             alt={`${HOTEL.name} Gym`}

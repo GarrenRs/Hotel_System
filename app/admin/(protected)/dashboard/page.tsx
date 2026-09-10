@@ -46,35 +46,35 @@ const ROOM_STAT_CARDS: StatCard[] = [
     key: 'totalRooms',
     labelKey: 'admin.stats.totalRooms',
     icon: <Layers className="w-5 h-5" />,
-    className: 'bg-white border-[#EAEAEA]',
+    className: 'bg-white border-[#CBC4B6]',
     iconClassName: 'text-[#B99246]',
   },
   {
     key: 'availableRooms',
     labelKey: 'admin.stats.availableRooms',
     icon: <CheckCircle2 className="w-5 h-5" />,
-    className: 'bg-emerald-50/50 border-emerald-100',
+    className: 'bg-emerald-50/50 border-emerald-200',
     iconClassName: 'text-emerald-600',
   },
   {
     key: 'occupiedRooms',
     labelKey: 'admin.stats.occupiedRooms',
     icon: <DoorOpen className="w-5 h-5" />,
-    className: 'bg-blue-50/50 border-blue-100',
+    className: 'bg-blue-50/50 border-blue-200',
     iconClassName: 'text-blue-600',
   },
   {
     key: 'cleaningRooms',
     labelKey: 'admin.stats.cleaningRooms',
     icon: <Sparkles className="w-5 h-5" />,
-    className: 'bg-amber-50/50 border-amber-100',
+    className: 'bg-amber-50/50 border-amber-200',
     iconClassName: 'text-amber-600',
   },
   {
     key: 'maintenanceRooms',
     labelKey: 'admin.stats.maintenanceRooms',
     icon: <Wrench className="w-5 h-5" />,
-    className: 'bg-rose-50/50 border-rose-100',
+    className: 'bg-rose-50/50 border-rose-200',
     iconClassName: 'text-rose-600',
   },
 ];
@@ -84,21 +84,21 @@ const RESERVATION_STAT_CARDS: StatCard[] = [
     key: 'reservedUpcoming',
     labelKey: 'admin.stats.reservedUpcoming',
     icon: <CalendarCheck className="w-5 h-5" />,
-    className: 'bg-white border-[#EAEAEA]',
+    className: 'bg-white border-[#CBC4B6]',
     iconClassName: 'text-[#B99246]',
   },
   {
     key: 'todayArrivals',
     labelKey: 'admin.stats.todayArrivals',
     icon: <CalendarPlus className="w-5 h-5" />,
-    className: 'bg-emerald-50/50 border-emerald-100',
+    className: 'bg-emerald-50/50 border-emerald-200',
     iconClassName: 'text-emerald-600',
   },
   {
     key: 'todayDepartures',
     labelKey: 'admin.stats.todayDepartures',
     icon: <CalendarX className="w-5 h-5" />,
-    className: 'bg-amber-50/50 border-amber-100',
+    className: 'bg-amber-50/50 border-amber-200',
     iconClassName: 'text-amber-600',
   },
 ];
@@ -183,7 +183,7 @@ export default function AdminDashboardPage() {
   return (
     <div className="space-y-8 animate-fadeIn">
       {/* Header Banner */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-[#EAEAEA] pb-6">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-[#CBC4B6] pb-6">
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold text-[#111111]">
             {t('admin.dashboard')}
@@ -208,7 +208,7 @@ export default function AdminDashboardPage() {
       {renderStatCards(RESERVATION_STAT_CARDS)}
 
       {/* Current Guests (ST-001 §K) */}
-      <div className="bg-white rounded-3xl border border-[#EAEAEA] shadow-luxury p-6 sm:p-8 space-y-6">
+      <div className="bg-white rounded-3xl border border-[#CBC4B6] shadow-luxury p-6 sm:p-8 space-y-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Users className="w-5 h-5 text-[#B99246]" />
@@ -224,14 +224,14 @@ export default function AdminDashboardPage() {
           <div className="overflow-x-auto">
             <table className="w-full text-xs text-right">
               <thead>
-                <tr className="border-b border-[#EAEAEA] text-[#333333]/60">
+                <tr className="border-b border-[#CBC4B6] text-[#333333]/60">
                   <th className="pb-3 px-3 font-semibold">{t('admin.table.guest')}</th>
                   <th className="pb-3 px-3 font-semibold">{t('admin.table.roomNumber')}</th>
                   <th className="pb-3 px-3 font-semibold">{t('admin.table.roomType')}</th>
                   <th className="pb-3 px-3 font-semibold">{t('admin.table.departure')}</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#EAEAEA]">
+              <tbody className="divide-y divide-[#CBC4B6]">
                 {stats?.currentGuests.map((guest) => (
                   <tr key={guest.reservationId} className="hover:bg-[#FAF9F7]/80 transition-colors">
                     <td className="py-3.5 px-3 font-semibold">{guest.guestName}</td>
@@ -247,7 +247,7 @@ export default function AdminDashboardPage() {
       </div>
 
       {/* Recent Reservations Table Preview */}
-      <div className="bg-white rounded-3xl border border-[#EAEAEA] shadow-luxury p-6 sm:p-8 space-y-6">
+      <div className="bg-white rounded-3xl border border-[#CBC4B6] shadow-luxury p-6 sm:p-8 space-y-6">
         <div className="flex items-center justify-between">
           <h2 className="text-lg font-bold text-[#111111]">
             {t('admin.recentReservationsTitle')}
@@ -263,7 +263,7 @@ export default function AdminDashboardPage() {
         <div className="overflow-x-auto">
           <table className="w-full text-xs text-right">
             <thead>
-              <tr className="border-b border-[#EAEAEA] text-[#333333]/60">
+              <tr className="border-b border-[#CBC4B6] text-[#333333]/60">
                 <th className="pb-3 px-3 font-semibold">{t('admin.table.id')}</th>
                 <th className="pb-3 px-3 font-semibold">{t('admin.table.customer')}</th>
                 <th className="pb-3 px-3 font-semibold">{t('admin.table.roomNumber')}</th>
@@ -272,7 +272,7 @@ export default function AdminDashboardPage() {
                 <th className="pb-3 px-3 font-semibold">{t('admin.table.actions')}</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#EAEAEA]">
+            <tbody className="divide-y divide-[#CBC4B6]">
               {recentReservations.map((res) => (
                 <tr key={res.id} className="hover:bg-[#FAF9F7]/80 transition-colors">
                   <td className="py-3.5 px-3 font-mono font-bold text-[#111111]">

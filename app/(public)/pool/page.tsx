@@ -31,7 +31,7 @@ export default function PoolPage() {
             {t('home.amenitiesLong.poolDesc')}
           </p>
         </div>
-        <div className="relative h-96 rounded-3xl overflow-hidden border border-[#EAEAEA] shadow-luxury bg-[#111111]">
+        <div className="relative h-96 rounded-3xl overflow-hidden border border-[#CBC4B6] shadow-luxury bg-[#111111]">
           <Image
             src="/images/pool/hotel-indoor-pool.webp"
             alt={`${HOTEL.name} Pool`}

@@ -26,7 +26,7 @@ export const GalleryGrid: React.FC = () => {
           <div
             key={img.id}
             onClick={() => setSelectedImage(img.src)}
-            className="relative h-72 rounded-3xl overflow-hidden bg-[#111111] cursor-pointer group border border-[#EAEAEA] shadow-luxury"
+            className="relative h-72 rounded-3xl overflow-hidden bg-[#111111] cursor-pointer group border border-[#CBC4B6] shadow-luxury"
           >
             <Image
               src={img.src}

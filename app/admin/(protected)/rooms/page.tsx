@@ -133,7 +133,7 @@ export default function AdminRoomsPage() {
   return (
     <div className="space-y-6 animate-fadeIn text-start">
       {/* Page Header */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-[#EAEAEA] pb-6">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-[#CBC4B6] pb-6">
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold text-[#111111]">
             {t('admin.rooms')}
@@ -188,7 +188,7 @@ export default function AdminRoomsPage() {
           return (
             <div
               key={room.id}
-              className="bg-white rounded-3xl border border-[#EAEAEA] shadow-luxury hover:shadow-lg transition-shadow overflow-hidden"
+              className="bg-white rounded-3xl border border-[#CBC4B6] shadow-luxury hover:shadow-lg transition-shadow overflow-hidden"
             >
               <button
                 type="button"
@@ -223,7 +223,7 @@ export default function AdminRoomsPage() {
               </button>
 
               {isOpen && (
-                <div className="px-6 pb-6 border-t border-[#EAEAEA] pt-4 space-y-4">
+                <div className="px-6 pb-6 border-t border-[#CBC4B6] pt-4 space-y-4">
                   {isOccupied ? (
                     <div className="space-y-2">
                       <p className="text-[11px] font-bold text-[#333333]/60">
@@ -292,7 +292,7 @@ export default function AdminRoomsPage() {
       </div>
 
       {!loading && rooms.length === 0 && (
-        <div className="bg-white rounded-3xl border border-[#EAEAEA] shadow-luxury p-10 text-center text-xs text-[#333333]/50">
+        <div className="bg-white rounded-3xl border border-[#CBC4B6] shadow-luxury p-10 text-center text-xs text-[#333333]/50">
           ...
         </div>
       )}

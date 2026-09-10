@@ -166,7 +166,7 @@ export const BookingForm: React.FC<BookingFormProps> = ({ initialRoomType }) => 
   };
 
   return (
-    <div className="bg-white rounded-3xl p-6 sm:p-10 shadow-luxury border border-[#EAEAEA] relative overflow-hidden text-start">
+    <div className="bg-white rounded-3xl p-6 sm:p-10 shadow-luxury border border-[#CBC4B6] relative overflow-hidden text-start">
       {/* Accent Top Bar */}
       <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#B99246] via-[#D4AF37] to-[#8C6D27]" />
 
@@ -243,7 +243,7 @@ export const BookingForm: React.FC<BookingFormProps> = ({ initialRoomType }) => 
               <input
                 type="date"
                 {...register('arrivalDate')}
-                className="w-full px-4 h-11 rounded-2xl border border-[#EAEAEA] bg-[#FAF9F7] text-xs focus:outline-none focus:border-[#B99246] transition-colors"
+                className="w-full px-4 h-11 rounded-2xl border border-[#CBC4B6] bg-[#FAF9F7] text-xs focus:outline-none focus:border-[#B99246] transition-colors"
               />
               {errors.arrivalDate && (
                 <p className="text-[11px] text-rose-500 mt-1">{t(errors.arrivalDate.message || '')}</p>
@@ -259,7 +259,7 @@ export const BookingForm: React.FC<BookingFormProps> = ({ initialRoomType }) => 
               <input
                 type="date"
                 {...register('departureDate')}
-                className="w-full px-4 h-11 rounded-2xl border border-[#EAEAEA] bg-[#FAF9F7] text-xs focus:outline-none focus:border-[#B99246] transition-colors"
+                className="w-full px-4 h-11 rounded-2xl border border-[#CBC4B6] bg-[#FAF9F7] text-xs focus:outline-none focus:border-[#B99246] transition-colors"
               />
               {errors.departureDate && (
                 <p className="text-[11px] text-rose-500 mt-1">{t(errors.departureDate.message || '')}</p>
@@ -277,7 +277,7 @@ export const BookingForm: React.FC<BookingFormProps> = ({ initialRoomType }) => 
                 min="1"
                 max={selectedTypeConfig?.capacity ?? 10}
                 {...register('guests')}
-                className="w-full px-4 h-11 rounded-2xl border border-[#EAEAEA] bg-[#FAF9F7] text-xs focus:outline-none focus:border-[#B99246] transition-colors"
+                className="w-full px-4 h-11 rounded-2xl border border-[#CBC4B6] bg-[#FAF9F7] text-xs focus:outline-none focus:border-[#B99246] transition-colors"
               />
               {selectedTypeConfig && Number(watchGuests) > 0 && !errors.guests && (
                 <p className="text-[11px] text-[#333333]/60 mt-1">
@@ -298,7 +298,7 @@ export const BookingForm: React.FC<BookingFormProps> = ({ initialRoomType }) => 
             </label>
             <select
               {...register('roomType', { onChange: () => setValue('roomId', '', { shouldValidate: true }) })}
-              className="w-full px-4 h-11 rounded-2xl border border-[#EAEAEA] bg-[#FAF9F7] text-xs focus:outline-none focus:border-[#B99246] transition-colors cursor-pointer"
+              className="w-full px-4 h-11 rounded-2xl border border-[#CBC4B6] bg-[#FAF9F7] text-xs focus:outline-none focus:border-[#B99246] transition-colors cursor-pointer"
             >
               {ROOM_TYPES_LIST.map((room) => (
                 <option key={room.id} value={room.id}>
@@ -325,7 +325,7 @@ export const BookingForm: React.FC<BookingFormProps> = ({ initialRoomType }) => 
               <>
                 <select
                   {...register('roomId')}
-                  className="w-full px-4 h-11 rounded-2xl border border-[#EAEAEA] bg-[#FAF9F7] text-xs focus:outline-none focus:border-[#B99246] transition-colors cursor-pointer disabled:opacity-50"
+                  className="w-full px-4 h-11 rounded-2xl border border-[#CBC4B6] bg-[#FAF9F7] text-xs focus:outline-none focus:border-[#B99246] transition-colors cursor-pointer disabled:opacity-50"
                   disabled={availability.status !== 'ready'}
                 >
                   <option value="">
@@ -367,7 +367,7 @@ export const BookingForm: React.FC<BookingFormProps> = ({ initialRoomType }) => 
                 type="text"
                 placeholder="Karim Benzema"
                 {...register('customerName')}
-                className="w-full px-4 h-11 rounded-2xl border border-[#EAEAEA] bg-[#FAF9F7] text-xs focus:outline-none focus:border-[#B99246] transition-colors"
+                className="w-full px-4 h-11 rounded-2xl border border-[#CBC4B6] bg-[#FAF9F7] text-xs focus:outline-none focus:border-[#B99246] transition-colors"
               />
               {errors.customerName && (
                 <p className="text-[11px] text-rose-500 mt-1">{t(errors.customerName.message || '')}</p>
@@ -384,7 +384,7 @@ export const BookingForm: React.FC<BookingFormProps> = ({ initialRoomType }) => 
                 type="tel"
                 placeholder="+213 550 00 00 00"
                 {...register('phone')}
-                className="w-full px-4 h-11 rounded-2xl border border-[#EAEAEA] bg-[#FAF9F7] text-xs focus:outline-none focus:border-[#B99246] transition-colors"
+                className="w-full px-4 h-11 rounded-2xl border border-[#CBC4B6] bg-[#FAF9F7] text-xs focus:outline-none focus:border-[#B99246] transition-colors"
               />
               {errors.phone && (
                 <p className="text-[11px] text-rose-500 mt-1">{t(errors.phone.message || '')}</p>
@@ -401,7 +401,7 @@ export const BookingForm: React.FC<BookingFormProps> = ({ initialRoomType }) => 
                 type="email"
                 placeholder="client@example.dz"
                 {...register('email')}
-                className="w-full px-4 h-11 rounded-2xl border border-[#EAEAEA] bg-[#FAF9F7] text-xs focus:outline-none focus:border-[#B99246] transition-colors"
+                className="w-full px-4 h-11 rounded-2xl border border-[#CBC4B6] bg-[#FAF9F7] text-xs focus:outline-none focus:border-[#B99246] transition-colors"
               />
               {errors.email && (
                 <p className="text-[11px] text-rose-500 mt-1">{t(errors.email.message || '')}</p>
@@ -419,7 +419,7 @@ export const BookingForm: React.FC<BookingFormProps> = ({ initialRoomType }) => 
               rows={3}
               placeholder="..."
               {...register('notes')}
-              className="w-full p-4 rounded-2xl border border-[#EAEAEA] bg-[#FAF9F7] text-xs focus:outline-none focus:border-[#B99246] transition-colors"
+              className="w-full p-4 rounded-2xl border border-[#CBC4B6] bg-[#FAF9F7] text-xs focus:outline-none focus:border-[#B99246] transition-colors"
             />
           </div>
 

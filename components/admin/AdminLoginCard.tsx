@@ -87,7 +87,7 @@ export const AdminLoginCard: React.FC = () => {
           <input
             type="text"
             {...register('username')}
-            className="w-full px-4 py-3 rounded-2xl border border-[#EAEAEA] bg-[#FAF9F7] text-xs focus:outline-none focus:border-[#B99246]"
+            className="w-full px-4 py-3 rounded-2xl border border-[#CBC4B6] bg-[#FAF9F7] text-xs focus:outline-none focus:border-[#B99246]"
           />
           {errors.username && (
             <p className="text-[11px] text-rose-500 mt-1">{t(errors.username.message || '')}</p>
@@ -102,7 +102,7 @@ export const AdminLoginCard: React.FC = () => {
           <input
             type="password"
             {...register('password')}
-            className="w-full px-4 py-3 rounded-2xl border border-[#EAEAEA] bg-[#FAF9F7] text-xs focus:outline-none focus:border-[#B99246]"
+            className="w-full px-4 py-3 rounded-2xl border border-[#CBC4B6] bg-[#FAF9F7] text-xs focus:outline-none focus:border-[#B99246]"
           />
           {errors.password && (
             <p className="text-[11px] text-rose-500 mt-1">{t(errors.password.message || '')}</p>
