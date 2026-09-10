@@ -32,25 +32,29 @@ export const StatsBand: React.FC = () => {
     };
   }, []);
 
+  const statItems = [
+    {
+      label: t('home.stats.rooms'),
+      value: roomCount !== null ? `${roomCount}+` : '...',
+    },
+    { label: t('home.stats.guests'), value: '12,000+' },
+    { label: t('home.stats.satisfaction'), value: '99%' },
+    { label: t('home.stats.experience'), value: '10+' },
+  ];
+
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
-      <div className="space-y-2">
-        <div className="text-4xl sm:text-5xl font-bold text-[#B99246]">
-          {roomCount !== null ? `${roomCount}+` : '...'}
-        </div>
-        <div className="text-xs text-white/70 uppercase tracking-wider">{t('home.stats.rooms')}</div>
-      </div>
-      <div className="space-y-2">
-        <div className="text-4xl sm:text-5xl font-bold text-[#B99246]">12,000+</div>
-        <div className="text-xs text-white/70 uppercase tracking-wider">{t('home.stats.guests')}</div>
-      </div>
-      <div className="space-y-2">
-        <div className="text-4xl sm:text-5xl font-bold text-[#B99246]">99%</div>
-        <div className="text-xs text-white/70 uppercase tracking-wider">{t('home.stats.satisfaction')}</div>
-      </div>
-      <div className="space-y-2">
-        <div className="text-4xl sm:text-5xl font-bold text-[#B99246]">10+</div>
-        <div className="text-xs text-white/70 uppercase tracking-wider">{t('home.stats.experience')}</div>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-10 text-center">
+        {statItems.map((stat) => (
+          <div key={stat.label} className="min-w-0 flex flex-col items-center">
+            <div className="text-4xl sm:text-5xl font-bold text-[#B99246] leading-none whitespace-nowrap">
+              {stat.value}
+            </div>
+            <div className="mt-2 text-xs text-white/70 uppercase tracking-wider leading-5">
+              {stat.label}
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

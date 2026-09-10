@@ -178,9 +178,7 @@ export default function HomePage() {
 
       {/* Statistics Section */}
       <section className="bg-[#111111] text-white py-16 border-y border-[#B99246]/20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
-          <StatsBand />
-        </div>
+        <StatsBand />
       </section>
 
       {/* Contact Section Preview */}
