@@ -7,7 +7,7 @@ import { reservationFormSchema, ReservationFormValues } from '@/lib/validations/
 import { useLanguage } from '@/components/providers/LanguageContext';
 import { ROOM_TYPES_LIST } from '@/lib/constants';
 import { RoomEntity } from '@/domain/room/entities';
-import { Calendar, Users, BedDouble, User, Phone, Mail, FileText, CheckCircle2, AlertCircle, KeyRound } from 'lucide-react';
+import { Calendar, CalendarDays, Users, BedDouble, User, Phone, Mail, FileText, CheckCircle2, AlertCircle, KeyRound } from 'lucide-react';
 
 interface BookingFormProps {
   initialRoomType?: string | null;
@@ -59,6 +59,36 @@ export const BookingForm: React.FC<BookingFormProps> = ({ initialRoomType }) => 
   const watchDeparture = watch('departureDate');
   const watchRoomType = watch('roomType');
   const watchGuests = watch('guests');
+
+  const stayNights =
+    watchArrival && watchDeparture && watchArrival < watchDeparture
+      ? Math.round(
+          (Date.UTC(
+            Number(watchDeparture.slice(0, 4)),
+            Number(watchDeparture.slice(5, 7)) - 1,
+            Number(watchDeparture.slice(8, 10))
+          ) -
+            Date.UTC(
+              Number(watchArrival.slice(0, 4)),
+              Number(watchArrival.slice(5, 7)) - 1,
+              Number(watchArrival.slice(8, 10))
+            )) /
+            86400000
+        )
+      : null;
+
+  const pluralWord = (count: number, one: string, two: string, many: string) =>
+    count === 1 ? one : count === 2 ? two : many;
+
+  const nightsNoun =
+    stayNights !== null
+      ? pluralWord(stayNights, t('contact.nightsOne'), t('contact.nightsTwo'), t('contact.nightsMany'))
+      : '';
+  const daysCount = stayNights !== null ? stayNights + 1 : 0;
+  const daysNoun =
+    daysCount > 0
+      ? pluralWord(daysCount, t('contact.daysOne'), t('contact.daysTwo'), t('contact.daysMany'))
+      : '';
 
   const selectedTypeConfig = useMemo(
     () => ROOM_TYPES_LIST.find((r) => r.id === watchRoomType),
@@ -233,9 +263,9 @@ export const BookingForm: React.FC<BookingFormProps> = ({ initialRoomType }) => 
           )}
 
           {/* Dates & Guests Row */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {/* Arrival Date */}
-            <div>
+            <div className="min-w-0">
               <label className="block text-xs font-semibold text-[#111111] mb-2 flex items-center gap-1.5">
                 <Calendar className="w-3.5 h-3.5 text-[#B99246]" />
                 <span>{t('contact.arrivalLabel')}</span>
@@ -243,7 +273,7 @@ export const BookingForm: React.FC<BookingFormProps> = ({ initialRoomType }) => 
               <input
                 type="date"
                 {...register('arrivalDate')}
-                className="w-full px-4 h-11 rounded-2xl border border-[#CBC4B6] bg-[#FAF9F7] text-xs focus:outline-none focus:border-[#B99246] transition-colors"
+                className="w-full min-w-0 px-4 h-11 rounded-2xl border border-[#CBC4B6] bg-[#FAF9F7] text-xs focus:outline-none focus:border-[#B99246] transition-colors"
               />
               {errors.arrivalDate && (
                 <p className="text-[11px] text-rose-500 mt-1">{t(errors.arrivalDate.message || '')}</p>
@@ -251,7 +281,7 @@ export const BookingForm: React.FC<BookingFormProps> = ({ initialRoomType }) => 
             </div>
 
             {/* Departure Date */}
-            <div>
+            <div className="min-w-0">
               <label className="block text-xs font-semibold text-[#111111] mb-2 flex items-center gap-1.5">
                 <Calendar className="w-3.5 h-3.5 text-[#B99246]" />
                 <span>{t('contact.departureLabel')}</span>
@@ -259,7 +289,7 @@ export const BookingForm: React.FC<BookingFormProps> = ({ initialRoomType }) => 
               <input
                 type="date"
                 {...register('departureDate')}
-                className="w-full px-4 h-11 rounded-2xl border border-[#CBC4B6] bg-[#FAF9F7] text-xs focus:outline-none focus:border-[#B99246] transition-colors"
+                className="w-full min-w-0 px-4 h-11 rounded-2xl border border-[#CBC4B6] bg-[#FAF9F7] text-xs focus:outline-none focus:border-[#B99246] transition-colors"
               />
               {errors.departureDate && (
                 <p className="text-[11px] text-rose-500 mt-1">{t(errors.departureDate.message || '')}</p>
@@ -267,7 +297,7 @@ export const BookingForm: React.FC<BookingFormProps> = ({ initialRoomType }) => 
             </div>
 
             {/* Guests */}
-            <div>
+            <div className="min-w-0">
               <label className="block text-xs font-semibold text-[#111111] mb-2 flex items-center gap-1.5">
                 <Users className="w-3.5 h-3.5 text-[#B99246]" />
                 <span>{t('contact.guestsLabel')}</span>
@@ -277,7 +307,7 @@ export const BookingForm: React.FC<BookingFormProps> = ({ initialRoomType }) => 
                 min="1"
                 max={selectedTypeConfig?.capacity ?? 10}
                 {...register('guests')}
-                className="w-full px-4 h-11 rounded-2xl border border-[#CBC4B6] bg-[#FAF9F7] text-xs focus:outline-none focus:border-[#B99246] transition-colors"
+                className="w-full min-w-0 px-4 h-11 rounded-2xl border border-[#CBC4B6] bg-[#FAF9F7] text-xs focus:outline-none focus:border-[#B99246] transition-colors"
               />
               {selectedTypeConfig && Number(watchGuests) > 0 && !errors.guests && (
                 <p className="text-[11px] text-[#333333]/60 mt-1">
@@ -289,6 +319,15 @@ export const BookingForm: React.FC<BookingFormProps> = ({ initialRoomType }) => 
               )}
             </div>
           </div>
+
+          {/* Stay duration summary */}
+          {stayNights !== null && (
+            <div className="flex items-center justify-center sm:justify-start gap-2 text-[11px] font-semibold text-[#111111] bg-[#F5EFE0] border border-[#B99246]/30 rounded-full px-4 py-2">
+              <CalendarDays className="w-4 h-4 text-[#B99246]" />
+              <span className="text-[#B99246]">{t('contact.stayDuration')}:</span>
+              <span>{stayNights} {nightsNoun} · {daysCount} {daysNoun}</span>
+            </div>
+          )}
 
           {/* Room Type */}
           <div>
@@ -395,7 +434,10 @@ export const BookingForm: React.FC<BookingFormProps> = ({ initialRoomType }) => 
             <div>
               <label className="block text-xs font-semibold text-[#111111] mb-2 flex items-center gap-1.5">
                 <Mail className="w-3.5 h-3.5 text-[#B99246]" />
-                <span>{t('contact.emailLabel')}</span>
+                <span>
+                  {t('contact.emailLabel')}{' '}
+                  <span className="font-normal text-[#333333]/50">{t('contact.optional')}</span>
+                </span>
               </label>
               <input
                 type="email"

@@ -5,6 +5,7 @@
   "phone": "Téléphone",
   "whatsapp": "WhatsApp",
   "email": "E-mail",
+  "optional": "(optionnel)",
   "formTitle": "Envoyez-nous votre message",
   "nameLabel": "Nom Complet",
   "emailLabel": "Adresse E-mail",
@@ -23,5 +24,13 @@
   "noAvailableRooms": "Aucune chambre disponible pour ces dates et ce type. Essayez d'autres dates.",
   "bookAnotherRoom": "Réserver une autre chambre",
   "keepReservationId": "Conservez ce numéro de réservation — notre équipe vous contactera pour confirmer les détails.",
-  "roomNumberLabel": "N° de chambre"
+  "roomNumberLabel": "N° de chambre",
+  "stayDuration": "Durée du séjour",
+  "nightsOne": "nuit",
+  "nightsTwo": "nuits",
+  "nightsMany": "nuits",
+  "daysOne": "jour",
+  "daysTwo": "jours",
+  "daysMany": "jours",
+  "openMap": "Voir l'emplacement sur la carte"
 }

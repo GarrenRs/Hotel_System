@@ -114,6 +114,15 @@ export default function ContactPage() {
               title={`${HOTEL.name} Map`}
             />
           </div>
+          <a
+            href={HOTEL.googleMapsUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="h-12 rounded-2xl bg-[#B99246] text-[#111111] font-bold text-xs uppercase tracking-widest hover:bg-[#D4AF37] transition-all shadow-luxury flex items-center justify-center gap-2"
+          >
+            <MapPin className="w-4 h-4" />
+            <span>{t('contact.openMap')}</span>
+          </a>
         </div>
       </section>
     </div>

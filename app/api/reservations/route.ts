@@ -53,7 +53,10 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(response, { status: 400 });
     }
 
-    const created = await reservationService.createReservation(parseResult.data as CreateReservationInput);
+    const created = await reservationService.createReservation({
+      ...(parseResult.data as CreateReservationInput),
+      email: parseResult.data.email ?? '',
+    });
     logger.info('Created new reservation request', { id: created.id, reservationId: created.reservationId });
 
     const response: ApiResponse<typeof created> = {

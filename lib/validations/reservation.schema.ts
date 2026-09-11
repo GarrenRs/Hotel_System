@@ -7,7 +7,7 @@ export const reservationFormSchema = z
   .object({
     customerName: z.string().min(2, { message: 'validation.nameRequired' }),
     phone: z.string().min(8, { message: 'validation.phoneRequired' }),
-    email: z.string().email({ message: 'validation.emailInvalid' }),
+    email: z.union([z.literal(''), z.string().email({ message: 'validation.emailInvalid' })]).optional(),
     arrivalDate: z
       .string()
       .min(1, { message: 'validation.arrivalRequired' })

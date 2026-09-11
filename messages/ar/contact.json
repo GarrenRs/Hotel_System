@@ -5,6 +5,7 @@
   "phone": "الهاتف",
   "whatsapp": "واتساب",
   "email": "البريد الإلكتروني",
+  "optional": "(اختياري)",
   "formTitle": "أرسل لنا استفسارك",
   "nameLabel": "الاسم الكامل",
   "emailLabel": "البريد الإلكتروني",
@@ -23,5 +24,13 @@
   "noAvailableRooms": "لا توجد غرف متاحة لهذه التواريخ والنوع. جرّب تواريخ أخرى.",
   "bookAnotherRoom": "طلب حجز غرفة أخرى",
   "keepReservationId": "احتفظ برقم الحجز هذا — سيتصل بك فريق الاستقبال لتأكيد التفاصيل.",
-  "roomNumberLabel": "رقم الغرفة"
+  "roomNumberLabel": "رقم الغرفة",
+  "stayDuration": "مدة الإقامة",
+  "nightsOne": "ليلة",
+  "nightsTwo": "ليلتان",
+  "nightsMany": "ليالٍ",
+  "daysOne": "يوم",
+  "daysTwo": "يومان",
+  "daysMany": "أيام",
+  "openMap": "عرض الموقع على الخريطة"
 }
